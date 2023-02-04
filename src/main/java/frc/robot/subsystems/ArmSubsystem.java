@@ -28,16 +28,17 @@ public class ArmSubsystem extends SubsystemBase {
   // Add Solenoids for Arm and Grasper
     private DoubleSolenoid armSol, intakeSolLeft, intakeSolRight;
 
-    private CANSparkMax armLengthMotor;
+    private CANSparkMax armLengthMotor, armAngleMotor;
     
 
   /** Creates a new Intake. */
   public ArmSubsystem() {
     // Initialize Solenoids
     armSol = new DoubleSolenoid(2, PneumaticsModuleType.CTREPCM,0,1);
-    intakeSolLeft = new DoubleSolenoid(2, PneumaticsModuleType.CTREPCM, 3, 4);
-    intakeSolRight = new DoubleSolenoid(2, PneumaticsModuleType.CTREPCM, 5, 6);
+    intakeSolLeft = new DoubleSolenoid(2, PneumaticsModuleType.CTREPCM, 2, 3);
+    intakeSolRight = new DoubleSolenoid(2, PneumaticsModuleType.CTREPCM, 4, 5);
     armLengthMotor = new CANSparkMax(6, MotorType.kBrushed);
+    armAngleMotor = new CANSparkMax(5, MotorType.kBrushless);
 
   }
 
@@ -49,11 +50,11 @@ public class ArmSubsystem extends SubsystemBase {
 
   // Add Methods to Control Intake and Arm Solenoids
 public void armUp(){
-  armSol.set(Value.kForward);
+  armSol.set(Value.kReverse);
 }
 
 public void armDown(){
-  armSol.set(Value.kReverse);
+  armSol.set(Value.kForward);
 }
 
 public void openLeft(){
@@ -76,5 +77,8 @@ public void setArmLengthMotorPower(double power){
   armLengthMotor.set(power);
 }
 
+public void setAngleMotorPower(double power){
+  armAngleMotor.set(power);
+}
 
 }

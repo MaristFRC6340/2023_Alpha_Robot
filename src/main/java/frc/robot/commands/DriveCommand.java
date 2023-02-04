@@ -26,22 +26,38 @@ public class DriveCommand extends CommandBase {
   @Override
   public void initialize() {}
 
+  double leftX = 0;
+  double leftY = 0;
+  double rightX = 0;
+
+
   // Called every time the scheduler runs while the command is scheduled.
   @Override
   public void execute() {
     // Updated Drive Command
+
+    leftX = Robot.getDriveControlJoystick().getRawAxis(0);
+    leftY = Robot.getDriveControlJoystick().getRawAxis(1);
+    rightX = Robot.getDriveControlJoystick().getRawAxis(4);
+
+
     m_robotDrive.drive(
-                MathUtil.applyDeadband(-Robot.getDriveControlJoystick().getLeftY()*DriveConstants.SpeedMultiplier, 0.06),
-                MathUtil.applyDeadband(-Robot.getDriveControlJoystick().getLeftX()*DriveConstants.SpeedMultiplier, 0.06),
-                MathUtil.applyDeadband(-Robot.getDriveControlJoystick().getRightX()*DriveConstants.SpeedMultiplier, 0.06),
+                MathUtil.applyDeadband(-leftY*DriveConstants.SpeedMultiplier, 0.06),
+                MathUtil.applyDeadband(-leftX*DriveConstants.SpeedMultiplier, 0.06),
+                MathUtil.applyDeadband(-rightX*DriveConstants.SpeedMultiplier, 0.06),
                 true);
 
+                
+    if(Robot.getDriveControlJoystick().getRawButton(9)){ // Left Stick Button
+      m_robotDrive.zeroHeading();
+    }
   }
 
   // Called once the command ends or is interrupted.
   @Override
   public void end(boolean interrupted) {
     // Todo: Set motors to stop
+
   }
 
   // Returns true when the command should end.

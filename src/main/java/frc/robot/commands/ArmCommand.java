@@ -4,6 +4,7 @@
 
 package frc.robot.commands;
 
+import edu.wpi.first.math.MathUtil;
 import edu.wpi.first.wpilibj2.command.CommandBase;
 import frc.robot.subsystems.ArmSubsystem;
 import frc.robot.Robot;
@@ -12,6 +13,8 @@ public class ArmCommand extends CommandBase {
   /** Creates a new ArmCommand. */
 
   private final ArmSubsystem arm;
+  double leftY = 0;
+  double rightY = 0;
 
   public ArmCommand( ArmSubsystem arm) {
     // Use addRequirements() here to declare subsystem dependencies.
@@ -25,13 +28,27 @@ public class ArmCommand extends CommandBase {
   // Called every time the scheduler runs while the command is scheduled.
   @Override
   public void execute() {
-    if(Robot.getArmControlJoystick().getRawButton(5)){
+    if(Robot.getArmControlJoystick().getRawButton(4)){ // y-button
       arm.armUp();
     }
-    if(Robot.getArmControlJoystick().getRawButton(3)){
+    if(Robot.getArmControlJoystick().getRawButton(1)){ // a-button
       arm.armDown();
     }
+    if(Robot.getArmControlJoystick().getRawButton(5)){ // a-button
+      arm.openLeft();
+      arm.closeRight();
+    }
+    if(Robot.getArmControlJoystick().getRawButton(6)){ // a-button
+      arm.closeLeft();
+      arm.openRight();
+    }
 
+    leftY = Robot.getArmControlJoystick().getRawAxis(1);
+    rightY = Robot.getArmControlJoystick().getRawAxis(5);
+
+    arm.setArmLengthMotorPower(MathUtil.applyDeadband(leftY, 0.06));
+    arm.setAngleMotorPower(MathUtil.applyDeadband(rightY, 0.06));
+  
   }
 
   // Called once the command ends or is interrupted.

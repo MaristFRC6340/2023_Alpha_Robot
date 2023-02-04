@@ -77,18 +77,7 @@ public class RobotContainer {
    * passing it to a
    * {@link JoystickButton}.
    */
-  private void configureButtonBindings() {
-    new JoystickButton(Robot.getDriveControlJoystick(), Button.kR1.value)
-        .whileTrue(new RunCommand(
-            () -> m_robotDrive.setX(),
-            m_robotDrive));
-
-    new JoystickButton(Robot.getDriveControlJoystick(), XboxController.Button.kA.value)
-        .whileTrue(new RunCommand(
-        () -> m_robotDrive.zeroHeading(), 
-        m_robotDrive));
-       
-  }
+  private void configureButtonBindings() {}
 
   /**
    * Use this to pass the autonomous command to the main {@link Robot} class.
