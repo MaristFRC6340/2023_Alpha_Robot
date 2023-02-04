@@ -22,6 +22,7 @@ public class Robot extends TimedRobot {
   private RobotContainer m_robotContainer;
 
   // TODO: Define the controllers for driving / arm control in static form
+  // We will need to decide the mappings
   private static Joystick m_armControlJoystick = new Joystick(Constants.OIConstants.kArmControllerPort); // Port zero for left joystick
   private static XboxController m_driverControlJoystick = new XboxController(Constants.OIConstants.kDriverControllerPort);
 
