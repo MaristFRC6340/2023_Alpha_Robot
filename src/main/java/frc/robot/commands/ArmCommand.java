@@ -13,8 +13,8 @@ public class ArmCommand extends CommandBase {
   /** Creates a new ArmCommand. */
 
   private final ArmSubsystem arm;
-  double leftY = 0;
-  double rightY = 0;
+  double leftY = 0, rightY = 0;
+  double leftX = 0, rightX = 0;
 
   public ArmCommand( ArmSubsystem arm) {
     // Use addRequirements() here to declare subsystem dependencies.
@@ -28,32 +28,49 @@ public class ArmCommand extends CommandBase {
   // Called every time the scheduler runs while the command is scheduled.
   @Override
   public void execute() {
-    if(Robot.getArmControlJoystick().getRawButton(4)){ // y-button
+
+    // Arm Control
+    if(Robot.getArmControlJoystick().getRawButton(5)){ // y-button
       arm.armUp();
     }
-    if(Robot.getArmControlJoystick().getRawButton(1)){ // a-button
+    if(Robot.getArmControlJoystick().getRawButton(3)){ // a-button
       arm.armDown();
     }
-    if(Robot.getArmControlJoystick().getRawButton(5)){ // a-button
-      arm.openLeft();
-      arm.closeRight();
+
+    // Intake Control
+    if(Robot.getArmControlJoystick().getRawButton(4)){ 
+      //arm.setWristMotorPower(.5);
+      arm.setIntakeLeftMotorPower(.8);
     }
-    if(Robot.getArmControlJoystick().getRawButton(6)){ // a-button
-      arm.closeLeft();
-      arm.openRight();
+    else if(Robot.getArmControlJoystick().getRawButton(1)){ 
+      //arm.setWristMotorPower(-.5);
+      arm.setIntakeLeftMotorPower(-.8);
+    }
+    else { 
+      arm.setIntakeLeftMotorPower(0);
     }
 
+    // Arm Length and Wrist Control
     leftY = Robot.getArmControlJoystick().getRawAxis(1);
     rightY = Robot.getArmControlJoystick().getRawAxis(5);
 
+    leftX = Robot.getArmControlJoystick().getRawAxis(4);
+    rightX = Robot.getArmControlJoystick().getRawAxis(0);
+
     arm.setArmLengthMotorPower(MathUtil.applyDeadband(leftY, 0.06));
-    arm.setAngleMotorPower(MathUtil.applyDeadband(rightY, 0.06));
+    arm.setWristMotorPower(MathUtil.applyDeadband(rightY, 0.06));
   
   }
 
   // Called once the command ends or is interrupted.
   @Override
-  public void end(boolean interrupted) {}
+  public void end(boolean interrupted) {
+    // Set all motors to off
+    arm.setIntakeLeftMotorPower(0);
+    arm.setArmLengthMotorPower(0);
+    arm.setWristMotorPower(0);
+
+  }
 
   // Returns true when the command should end.
   @Override

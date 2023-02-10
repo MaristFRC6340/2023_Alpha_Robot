@@ -21,6 +21,7 @@ import com.revrobotics.CANSparkMaxLowLevel.MotorType;
 import edu.wpi.first.wpilibj.DoubleSolenoid;
 import edu.wpi.first.wpilibj.PneumaticsModuleType;
 import edu.wpi.first.wpilibj.DoubleSolenoid.Value;
+import edu.wpi.first.wpilibj.motorcontrol.Spark;
 import edu.wpi.first.wpilibj2.command.SubsystemBase;
 
 public class ArmSubsystem extends SubsystemBase {
@@ -28,17 +29,21 @@ public class ArmSubsystem extends SubsystemBase {
   // Add Solenoids for Arm and Grasper
     private DoubleSolenoid armSol, intakeSolLeft, intakeSolRight;
 
-    private CANSparkMax armLengthMotor, armAngleMotor;
+    private CANSparkMax armLengthMotor, wristMotor;
+    private Spark intakeLeftMotor;
     
 
   /** Creates a new Intake. */
   public ArmSubsystem() {
     // Initialize Solenoids
     armSol = new DoubleSolenoid(2, PneumaticsModuleType.CTREPCM,0,1);
-    intakeSolLeft = new DoubleSolenoid(2, PneumaticsModuleType.CTREPCM, 2, 3);
-    intakeSolRight = new DoubleSolenoid(2, PneumaticsModuleType.CTREPCM, 4, 5);
+    intakeSolLeft = new DoubleSolenoid(2, PneumaticsModuleType.CTREPCM, 3, 4);
+    intakeSolRight = new DoubleSolenoid(2, PneumaticsModuleType.CTREPCM, 5, 6);
+    
     armLengthMotor = new CANSparkMax(6, MotorType.kBrushed);
-    armAngleMotor = new CANSparkMax(5, MotorType.kBrushless);
+    //armAngleMotor = new CANSparkMax(5, MotorType.kBrushless);
+    wristMotor = new CANSparkMax(7, MotorType.kBrushless);
+    intakeLeftMotor = new Spark(5);
 
   }
 
@@ -77,8 +82,16 @@ public void setArmLengthMotorPower(double power){
   armLengthMotor.set(power);
 }
 
-public void setAngleMotorPower(double power){
-  armAngleMotor.set(power);
+public void setWristMotorPower(double power){
+  wristMotor.set(power);
 }
+
+public void setIntakeLeftMotorPower(double power){
+  intakeLeftMotor.set(power);
+}
+
+// public void setAngleMotorPower(double power){
+//   armAngleMotor.set(power);
+// }
 
 }
