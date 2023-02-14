@@ -30,10 +30,10 @@ public class ArmCommand extends CommandBase {
   public void execute() {
 
     // Arm Control
-    if(Robot.getArmControlJoystick().getRawButton(5)){ // y-button
+    if(Robot.getArmControlJoystick().getRawButton(5)){ // lb
       arm.armUp();
     }
-    if(Robot.getArmControlJoystick().getRawButton(3)){ // a-button
+    if(Robot.getArmControlJoystick().getRawButton(6)){ // rb
       arm.armDown();
     }
 
@@ -51,10 +51,12 @@ public class ArmCommand extends CommandBase {
     }
 
     // Arm Length and Wrist Control
-    leftY = Robot.getArmControlJoystick().getRawAxis(1);
-    rightY = Robot.getArmControlJoystick().getRawAxis(5);
+    leftY = Robot.getArmControlJoystick().getRawAxis(1); //arm motor
+    
+    rightY = Robot.getArmControlJoystick().getRawAxis(5)/4; //wrist motor
 
     leftX = Robot.getArmControlJoystick().getRawAxis(4);
+    
     rightX = Robot.getArmControlJoystick().getRawAxis(0);
 
     arm.setArmLengthMotorPower(MathUtil.applyDeadband(leftY, 0.06));

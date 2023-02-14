@@ -29,7 +29,7 @@ public final class Constants {
     // the robot, rather the allowed maximum speeds
     public static final double kMaxSpeedMetersPerSecond = 4.8;
     public static final double kMaxAngularSpeed = 2 * Math.PI; // radians per second
-    public static final double SpeedMultiplier = 1;
+    public static final double SpeedMultiplier = 1; // Scale for training. Range [0, 1.0] with 1.0 full speed
     // Chassis configuration
     public static final double kTrackWidth = Units.inchesToMeters(26.5);
     // Distance between centers of right and left wheels on robot
