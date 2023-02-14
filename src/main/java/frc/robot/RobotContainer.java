@@ -15,6 +15,7 @@ import edu.wpi.first.math.trajectory.TrajectoryConfig;
 import edu.wpi.first.math.trajectory.TrajectoryGenerator;
 import edu.wpi.first.wpilibj.XboxController;
 import edu.wpi.first.wpilibj.PS4Controller.Button;
+import frc.robot.Autos.AutoBlueOne;
 import frc.robot.Autos.ExampleAuto;
 import frc.robot.Constants.AutoConstants;
 import frc.robot.Constants.DriveConstants;
@@ -128,6 +129,10 @@ public class RobotContainer {
   }
   public Command getArmCommand(){
     return armCommand;
+  }
+
+  public Command getAutoBlueOne() {
+    return new AutoBlueOne(m_armSubsystem);
   }
 
   public Command getDriveCommand() {
