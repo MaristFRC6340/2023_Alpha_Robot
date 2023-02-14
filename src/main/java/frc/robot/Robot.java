@@ -8,6 +8,8 @@ package frc.robot;
 
 import edu.wpi.first.wpilibj.Joystick;
 import edu.wpi.first.wpilibj.TimedRobot;
+import edu.wpi.first.wpilibj.smartdashboard.SendableChooser;
+import edu.wpi.first.wpilibj.smartdashboard.SmartDashboard;
 import edu.wpi.first.wpilibj2.command.Command;
 import edu.wpi.first.wpilibj2.command.CommandScheduler;
 
@@ -27,6 +29,19 @@ public class Robot extends TimedRobot {
   private static Joystick m_armControlJoystick = new Joystick(Constants.OIConstants.kArmControllerPort); // Port zero for left joystick
   private static Joystick m_driverControlJoystick = new Joystick(Constants.OIConstants.kDriverControllerPort);
 
+  //Smart Dashboard and Auto Chooser
+  private static final String kDefaultOption = "Default";
+  private static final String kBlue1 = "Blue1";
+  private static final String kBlue2 = "Blue2";
+  private static final String kBlue3 = "Blue3";
+  private static final String kRed1 = "Red1";
+  private static final String kRed2 = "Red2";
+  private static final String kRed3 = "Red3";
+  private static final String kExampleAuto = "Example";
+
+  private String m_autoSelected;
+  private final SendableChooser<String> m_chooser = new SendableChooser();
+
   /**
    * This function is run when the robot is first started up and should be used for any
    * initialization code.
@@ -36,6 +51,20 @@ public class Robot extends TimedRobot {
     // Instantiate our RobotContainer.  This will perform all our button bindings, and put our
     // autonomous chooser on the dashboard.
     m_robotContainer = new RobotContainer();
+
+    //Initialize Chooser
+
+    m_chooser.setDefaultOption("Default Auto", kDefaultOption);
+    m_chooser.addOption("Blue1", kBlue1);
+    m_chooser.addOption("Blue2", kBlue2);
+    m_chooser.addOption("Blue3", kBlue3);
+    m_chooser.addOption("Red1", kRed1);
+    m_chooser.addOption("Red2", kRed2);
+    m_chooser.addOption("Red3", kRed3);
+    m_chooser.addOption("Example Auto", kExampleAuto);
+
+    String[] choices = {kBlue1, kBlue2, kBlue3, kRed1, kRed2, kRed3, kExampleAuto};
+    SmartDashboard.putStringArray("Auto List", choices);
   }
 
   /**
@@ -64,7 +93,22 @@ public class Robot extends TimedRobot {
   /** This autonomous runs the autonomous command selected by your {@link RobotContainer} class. */
   @Override
   public void autonomousInit() {
+
     m_autonomousCommand = m_robotContainer.getAutoBlueOne();
+
+    m_autoSelected = SmartDashboard.getString("Auto Selection", kDefaultOption);
+
+    switch (m_autoSelected) {
+      case kBlue1:
+        m_autonomousCommand = m_robotContainer.getAutoBlueOne();
+        break;
+      case kExampleAuto:
+        m_autonomousCommand = m_robotContainer.getAutonomousCommand();
+        break;
+        case kDefaultOption:
+        default:
+        break;
+    }
 
     /*
      * String autoSelected = SmartDashboard.getString("Auto Selector",
