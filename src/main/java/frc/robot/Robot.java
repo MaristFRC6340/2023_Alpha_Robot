@@ -38,6 +38,7 @@ public class Robot extends TimedRobot {
   private static final String kRed2 = "Red2";
   private static final String kRed3 = "Red3";
   private static final String kExampleAuto = "Example";
+  private static final String kWristRotateTestCommand = "Wrist Rotate Test";
 
   private String m_autoSelected;
   private final SendableChooser<String> m_chooser = new SendableChooser();
@@ -62,8 +63,9 @@ public class Robot extends TimedRobot {
     m_chooser.addOption("Red2", kRed2);
     m_chooser.addOption("Red3", kRed3);
     m_chooser.addOption("Example Auto", kExampleAuto);
+    m_chooser.addOption("Wrist Rotate Test", kWristRotateTestCommand);
 
-    String[] choices = {kBlue1, kBlue2, kBlue3, kRed1, kRed2, kRed3, kExampleAuto};
+    String[] choices = {kBlue1, kBlue2, kBlue3, kRed1, kRed2, kRed3, kExampleAuto, kWristRotateTestCommand};
     SmartDashboard.putStringArray("Auto List", choices);
   }
 
@@ -94,7 +96,7 @@ public class Robot extends TimedRobot {
   @Override
   public void autonomousInit() {
 
-    m_autonomousCommand = m_robotContainer.getAutoBlueOne();
+    //m_autonomousCommand = m_robotContainer.getAutoBlueOne();
 
     m_autoSelected = SmartDashboard.getString("Auto Selection", kDefaultOption);
 
@@ -105,10 +107,16 @@ public class Robot extends TimedRobot {
       case kExampleAuto:
         m_autonomousCommand = m_robotContainer.getAutonomousCommand();
         break;
-        case kDefaultOption:
+      case kWristRotateTestCommand:
+        m_autonomousCommand = m_robotContainer.getWristRotateTestCommand();
+        break;
+      case kDefaultOption:
         default:
         break;
     }
+
+    m_autonomousCommand = m_robotContainer.getWristRotateTestCommand();
+
 
     /*
      * String autoSelected = SmartDashboard.getString("Auto Selector",

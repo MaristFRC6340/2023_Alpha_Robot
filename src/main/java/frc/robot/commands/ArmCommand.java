@@ -37,6 +37,10 @@ public class ArmCommand extends CommandBase {
       arm.armDown();
     }
 
+    // if(Robot.getArmControlJoystick().getRawButton(3)) {
+    //   arm.setRotations(100);
+    // }
+
     // Intake Control
     if(Robot.getArmControlJoystick().getRawButton(4)){ 
       //arm.setWristMotorPower(.5);

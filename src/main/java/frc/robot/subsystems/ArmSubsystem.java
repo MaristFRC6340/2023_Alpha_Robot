@@ -16,8 +16,11 @@
 package frc.robot.subsystems;
 
 import com.revrobotics.CANSparkMax;
+import com.revrobotics.RelativeEncoder;
+import com.revrobotics.SparkMaxPIDController;
 import com.revrobotics.CANSparkMaxLowLevel.MotorType;
 
+import edu.wpi.first.math.controller.PIDController;
 import edu.wpi.first.wpilibj.DoubleSolenoid;
 import edu.wpi.first.wpilibj.PneumaticsModuleType;
 import edu.wpi.first.wpilibj.DoubleSolenoid.Value;
@@ -31,7 +34,18 @@ public class ArmSubsystem extends SubsystemBase {
 
     private CANSparkMax armLengthMotor, wristMotor;
     private Spark intakeLeftMotor;
-    
+
+    // Add a PIDController Object
+    private SparkMaxPIDController arm_PIDController;
+    private RelativeEncoder arm_RelativeEncoder;
+    // Add PID fields for wrist motor
+    private double kP = 0.1;
+    private double kI = 1e-4;
+    private double kD = 1;
+    private double kIz = 0;
+    private double kFF = 0;
+    private double kMaxOutput = 1;
+    private double kMinOutput = -1;
 
   /** Creates a new Intake. */
   public ArmSubsystem() {
@@ -44,6 +58,16 @@ public class ArmSubsystem extends SubsystemBase {
     //armAngleMotor = new CANSparkMax(5, MotorType.kBrushless);
     wristMotor = new CANSparkMax(7, MotorType.kBrushless);
     intakeLeftMotor = new Spark(5);
+
+    // Initialize PID Controller Object
+    arm_PIDController = wristMotor.getPIDController();
+    arm_RelativeEncoder = wristMotor.getEncoder();
+    arm_PIDController.setP(kP);
+    arm_PIDController.setI(kI);
+    arm_PIDController.setD(kD);
+    arm_PIDController.setIZone(kIz);
+    arm_PIDController.setFF(kFF);
+    arm_PIDController.setOutputRange(kMinOutput, kMaxOutput);
 
   }
 
@@ -89,6 +113,21 @@ public void setWristMotorPower(double power){
 public void setIntakeLeftMotorPower(double power){
   intakeLeftMotor.set(power);
 }
+
+public void setRotations(double rotations) {
+  arm_PIDController.setReference(rotations, CANSparkMax.ControlType.kPosition);
+}
+
+public double getWristPosition() {
+  return arm_RelativeEncoder.getPosition();
+}
+
+public RelativeEncoder getWristEncoder() {
+  return arm_RelativeEncoder;
+}
+
+// Add Code to set Rotations for Wrist Motor
+
 
 // public void setAngleMotorPower(double power){
 //   armAngleMotor.set(power);

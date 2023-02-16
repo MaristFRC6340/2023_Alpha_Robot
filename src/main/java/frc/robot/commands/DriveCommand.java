@@ -45,7 +45,7 @@ public class DriveCommand extends CommandBase {
                 MathUtil.applyDeadband(-leftY*DriveConstants.SpeedMultiplier, 0.06),
                 MathUtil.applyDeadband(-leftX*DriveConstants.SpeedMultiplier, 0.06),
                 MathUtil.applyDeadband(-rightX*DriveConstants.SpeedMultiplier, 0.06),
-                true);
+                false);
 
                 
     if(Robot.getDriveControlJoystick().getRawButton(9)){ // Left Stick Button
