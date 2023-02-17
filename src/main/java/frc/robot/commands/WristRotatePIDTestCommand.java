@@ -41,8 +41,8 @@ private double rotations = 0;
     kD = 1;
     kIz = 0;
     kFF = 0;
-    kMaxOutput = 0.5;
-    kMinOutput = -0.5;
+    kMaxOutput = 0.25;
+    kMinOutput = -0.25;
 
     m_pidController.setP(kP);
     m_pidController.setI(kI);
