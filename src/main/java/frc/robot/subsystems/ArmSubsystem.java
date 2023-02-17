@@ -126,6 +126,10 @@ public RelativeEncoder getWristEncoder() {
   return arm_RelativeEncoder;
 }
 
+public CANSparkMax getWristMotor() {
+  return wristMotor;
+}
+
 // Add Code to set Rotations for Wrist Motor
 
 

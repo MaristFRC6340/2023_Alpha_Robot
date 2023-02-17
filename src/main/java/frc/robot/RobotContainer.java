@@ -22,6 +22,7 @@ import frc.robot.Constants.DriveConstants;
 import frc.robot.Constants.OIConstants;
 import frc.robot.commands.ArmCommand;
 import frc.robot.commands.DriveCommand;
+import frc.robot.commands.WristRotatePIDTestCommand;
 import frc.robot.commands.WristRotateTestCommand;
 import frc.robot.subsystems.ArmSubsystem;
 import frc.robot.subsystems.DriveSubsystem;
@@ -144,5 +145,8 @@ public class RobotContainer {
     return new WristRotateTestCommand(m_armSubsystem, -100);
   }
 
+  public Command getWristPIDCommandTest() {
+    return new WristRotatePIDTestCommand(m_armSubsystem, 0);
+  }
 
 }

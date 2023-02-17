@@ -115,7 +115,9 @@ public class Robot extends TimedRobot {
         break;
     }
 
-    m_autonomousCommand = m_robotContainer.getWristRotateTestCommand();
+    //m_autonomousCommand = m_robotContainer.getWristRotateTestCommand();
+
+    m_autonomousCommand = m_robotContainer.getWristPIDCommandTest();
 
 
     /*
