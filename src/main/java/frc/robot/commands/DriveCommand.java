@@ -15,6 +15,8 @@ public class DriveCommand extends CommandBase {
   // Field for DriveSubsystem
   private final DriveSubsystem m_robotDrive;
 
+  private double speedControl = 0.5;
+
 
   /** Creates a new DriveCommand. */
   public DriveCommand(DriveSubsystem drive) {
@@ -42,15 +44,26 @@ public class DriveCommand extends CommandBase {
 
 
     m_robotDrive.drive(
-                MathUtil.applyDeadband(-leftY*DriveConstants.SpeedMultiplier, 0.06),
-                MathUtil.applyDeadband(-leftX*DriveConstants.SpeedMultiplier, 0.06),
-                MathUtil.applyDeadband(-rightX*DriveConstants.SpeedMultiplier, 0.06),
+                MathUtil.applyDeadband(-leftY*speedControl, 0.06),
+                MathUtil.applyDeadband(-leftX*speedControl, 0.06),
+                MathUtil.applyDeadband(-rightX*speedControl, 0.06),
                 false);
 
                 
     if(Robot.getDriveControlJoystick().getRawButton(9)){ // Left Stick Button
       m_robotDrive.zeroHeading();
     }
+
+    // Speed Control
+    // Left Bumper Full Speed
+    if (Robot.getDriveControlJoystick().getRawButton(5)) {
+      speedControl = 1.0;
+    }
+    // Right Bumper Half Speed
+    if (Robot.getDriveControlJoystick().getRawButton(6)) {
+      speedControl = 0.5;
+    }
+
   }
 
   // Called once the command ends or is interrupted.
