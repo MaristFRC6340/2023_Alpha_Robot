@@ -6,16 +6,18 @@ package frc.robot.commands;
 
 import edu.wpi.first.wpilibj2.command.CommandBase;
 import frc.robot.subsystems.ArmSubsystem;
+import frc.robot.subsystems.WristSubsystem;
 
 public class WristRotateTestCommand extends CommandBase {
 
   // Add field for ArmSubsystem
-  private ArmSubsystem arm;
+  private WristSubsystem wrist;
   private double clicks;
+
   /** Creates a new WristRotateTestCommad. */
-  public WristRotateTestCommand(ArmSubsystem arm, double clicks) {
+  public WristRotateTestCommand(WristSubsystem wrist, double clicks) {
     // Use addRequirements() here to declare subsystem dependencies.
-    this.arm = arm;
+    this.wrist = wrist;
     this.clicks = clicks;
   }
 
@@ -23,7 +25,7 @@ public class WristRotateTestCommand extends CommandBase {
   @Override
   public void initialize() {
     // Reset Rotations
-    arm.getWristEncoder().setPosition(0);
+    wrist.getWristEncoder().setPosition(0);
 
     //System.out.println("Wrist Command Initialized");
 
@@ -35,17 +37,17 @@ public class WristRotateTestCommand extends CommandBase {
 
     // Set Rotate for Arm to 1 rotation
     if (clicks > 0) {
-      arm.setWristMotorPower(.25);
+      wrist.setWristMotorPower(.25);
     }
     else {
-      arm.setWristMotorPower(-.25);
+      wrist.setWristMotorPower(-.25);
     }
   }
 
   // Called once the command ends or is interrupted.
   @Override
   public void end(boolean interrupted) {
-    arm.setWristMotorPower(0);
+    wrist.setWristMotorPower(0);
   }
 
   // Returns true when the command should end.
@@ -53,7 +55,7 @@ public class WristRotateTestCommand extends CommandBase {
   public boolean isFinished() {
 
     // Maybe wait for a time to allow arm to get to rotation?
-    double currentRotation = arm.getWristPosition();
+    double currentRotation = wrist.getWristPosition();
 
     //System.out.println(currentRotation);
 

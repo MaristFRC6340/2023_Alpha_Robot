@@ -16,6 +16,6 @@ public class AutoBlueOne extends SequentialCommandGroup {
   public AutoBlueOne(ArmSubsystem arm) {
     // Add your commands in the addCommands() call, e.g.
     // addCommands(new FooCommand(), new BarCommand());
-    addCommands(new IntakeTimeCommand(arm, 0.75, 2));
+    addCommands(new IntakeTimeCommand(arm, -0.75, 2));
   }
 }

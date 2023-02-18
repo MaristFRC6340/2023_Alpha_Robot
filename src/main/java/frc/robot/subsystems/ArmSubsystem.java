@@ -32,20 +32,9 @@ public class ArmSubsystem extends SubsystemBase {
   // Add Solenoids for Arm and Grasper
     private DoubleSolenoid armSol, intakeSolLeft, intakeSolRight;
 
-    private CANSparkMax armLengthMotor, wristMotor;
+    private CANSparkMax armLengthMotor; // Remove Wrist motor 18 Feb 23 michaudc
     private Spark intakeLeftMotor;
 
-    // Add a PIDController Object
-    private SparkMaxPIDController arm_PIDController;
-    private RelativeEncoder arm_RelativeEncoder;
-    // Add PID fields for wrist motor
-    private double kP = 0.1;
-    private double kI = 1e-4;
-    private double kD = 1;
-    private double kIz = 0;
-    private double kFF = 0;
-    private double kMaxOutput = 1;
-    private double kMinOutput = -1;
 
   /** Creates a new Intake. */
   public ArmSubsystem() {
@@ -56,18 +45,8 @@ public class ArmSubsystem extends SubsystemBase {
     
     armLengthMotor = new CANSparkMax(6, MotorType.kBrushed);
     //armAngleMotor = new CANSparkMax(5, MotorType.kBrushless);
-    wristMotor = new CANSparkMax(7, MotorType.kBrushless);
+    //wristMotor = new CANSparkMax(7, MotorType.kBrushless); // removed 17 Feb 23 tonioloa
     intakeLeftMotor = new Spark(5);
-
-    // Initialize PID Controller Object
-    arm_PIDController = wristMotor.getPIDController();
-    arm_RelativeEncoder = wristMotor.getEncoder();
-    arm_PIDController.setP(kP);
-    arm_PIDController.setI(kI);
-    arm_PIDController.setD(kD);
-    arm_PIDController.setIZone(kIz);
-    arm_PIDController.setFF(kFF);
-    arm_PIDController.setOutputRange(kMinOutput, kMaxOutput);
 
   }
 
@@ -107,13 +86,14 @@ public void setArmLengthMotorPower(double power){
 }
 
 public void setWristMotorPower(double power){
-  wristMotor.set(power);
+  // wristMotor.set(power); // removed 18 Feb 23 michaudc
 }
 
 public void setIntakeLeftMotorPower(double power){
   intakeLeftMotor.set(power);
 }
 
+/* removed 18 Feb 23 michaudc
 public void setRotations(double rotations) {
   arm_PIDController.setReference(rotations, CANSparkMax.ControlType.kPosition);
 }
@@ -125,9 +105,11 @@ public double getWristPosition() {
 public RelativeEncoder getWristEncoder() {
   return arm_RelativeEncoder;
 }
+*/
 
 public CANSparkMax getWristMotor() {
-  return wristMotor;
+  // return wristMotor; // removed 18 Feb 23 michaudc
+  return null;
 }
 
 // Add Code to set Rotations for Wrist Motor

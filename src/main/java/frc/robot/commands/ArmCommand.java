@@ -42,29 +42,14 @@ public class ArmCommand extends CommandBase {
     // }
 
     // Intake Control
-    if(Robot.getArmControlJoystick().getRawButton(4)){ 
-      //arm.setWristMotorPower(.5);
-      arm.setIntakeLeftMotorPower(.8);
-    }
-    else if(Robot.getArmControlJoystick().getRawButton(1)){ 
-      //arm.setWristMotorPower(-.5);
-      arm.setIntakeLeftMotorPower(-.8);
-    }
-    else { 
-      arm.setIntakeLeftMotorPower(0);
-    }
+    double intakePower = Robot.getArmControlJoystick().getRawAxis(2) - Robot.getArmControlJoystick().getRawAxis(3);
+    //System.out.println(intakePower);
+    arm.setIntakeLeftMotorPower(intakePower);
 
-    // Arm Length and Wrist Control
+    // Arm Length
     leftY = Robot.getArmControlJoystick().getRawAxis(1); //arm motor
-    
-    rightY = Robot.getArmControlJoystick().getRawAxis(5)/4; //wrist motor
-
-    leftX = Robot.getArmControlJoystick().getRawAxis(4);
-    
-    rightX = Robot.getArmControlJoystick().getRawAxis(0);
-
     arm.setArmLengthMotorPower(MathUtil.applyDeadband(leftY, 0.06));
-    arm.setWristMotorPower(MathUtil.applyDeadband(rightY, 0.06));
+    
   
   }
 

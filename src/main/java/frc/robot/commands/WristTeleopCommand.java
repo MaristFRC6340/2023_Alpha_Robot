@@ -10,10 +10,11 @@ import com.revrobotics.SparkMaxPIDController;
 
 import edu.wpi.first.wpilibj.smartdashboard.SmartDashboard;
 import edu.wpi.first.wpilibj2.command.CommandBase;
+import frc.robot.Robot;
 import frc.robot.subsystems.ArmSubsystem;
 import frc.robot.subsystems.WristSubsystem;
 
-public class WristRotatePIDTestCommand extends CommandBase {
+public class WristTeleopCommand extends CommandBase {
 
 private WristSubsystem wrist;
 
@@ -24,14 +25,13 @@ public double kP, kI, kD, kIz, kFF, kMaxOutput, kMinOutput;
 
 private double rotations = 0;
 
-
-  /** Creates a new WristRotatePIDTestCommand. */
-  public WristRotatePIDTestCommand(WristSubsystem wrist, double rotations) {
+  /** Creates a new WristTeleopCommand. */
+  public WristTeleopCommand(WristSubsystem wrist, double rotations) {
     // Use addRequirements() here to declare subsystem dependencies.
     this.wrist = wrist;
     this.rotations = rotations;
 
-    m_motor = wrist.getWristMotor(); // updated 18 Feb 23
+    m_motor = wrist.getWristMotor();
 
     m_pidController = m_motor.getPIDController();
 
@@ -51,18 +51,6 @@ private double rotations = 0;
     m_pidController.setIZone(kIz);
     m_pidController.setFF(kFF);
     m_pidController.setOutputRange(kMinOutput, kMaxOutput);
-
-    // Display
-    SmartDashboard.putNumber("P Gain", kP);
-    SmartDashboard.putNumber("I Gain", kI);
-    SmartDashboard.putNumber("D Gain", kD);
-    SmartDashboard.putNumber("I Zone", kIz);
-    SmartDashboard.putNumber("Feed Forward", kFF);
-    SmartDashboard.putNumber("Max Output", kMaxOutput);
-    SmartDashboard.putNumber("Min Output", kMinOutput);
-    SmartDashboard.putNumber("Set Rotations", 0);
-
-
   }
 
   // Called when the command is initially scheduled.
@@ -73,29 +61,41 @@ private double rotations = 0;
   @Override
   public void execute() {
 
-    // Read Values from Dashboard
-    double p = SmartDashboard.getNumber("P Gain", 0);
-    double i = SmartDashboard.getNumber("I Gain", 0);
-    double d = SmartDashboard.getNumber("D Gain", 0);
-    double iz = SmartDashboard.getNumber("I Zone", 0);
-    double ff = SmartDashboard.getNumber("Feed Forward", 0);
-    double max = SmartDashboard.getNumber("Max Output", 0);
-    double min = SmartDashboard.getNumber("Min Output", 0);
-    double rotations = SmartDashboard.getNumber("Set Rotations", 0);
+    System.out.println(rotations);
 
-    // if PID coefficients on SmartDashboard have changed, write new values to controller
-    if((p != kP)) { m_pidController.setP(p); kP = p; }
-    if((i != kI)) { m_pidController.setI(i); kI = i; }
-    if((d != kD)) { m_pidController.setD(d); kD = d; }
-    if((iz != kIz)) { m_pidController.setIZone(iz); kIz = iz; }
-    if((ff != kFF)) { m_pidController.setFF(ff); kFF = ff; }
-    if((max != kMaxOutput) || (min != kMinOutput)) { 
-      m_pidController.setOutputRange(min, max); 
-      kMinOutput = min; kMaxOutput = max; 
+    // Use Laddered If Statements for setting rotations state
+    // If / Else Statements are for Motor States
+    // Button: A: Home Positions
+    if (Robot.getArmControlJoystick().getRawButton(1)) {
+      rotations = 5;
+    }
+
+    // Button: B: Home Positions
+    if (Robot.getArmControlJoystick().getRawButton(2)) {
+      rotations = 10;
+    } 
+
+    // Button: X: Shelf Pickup Position
+    if (Robot.getArmControlJoystick().getRawButton(3)) {
+      rotations = 51;
+    }
+
+    // Button: Y: Pickup from Floor
+    if (Robot.getArmControlJoystick().getRawButton(4)) {
+      rotations = 33;
+    }
+
+    // Protect it going under 0
+    if (rotations <= 0) {
+      rotations = 0;
+    }
+
+    double deltaPos = Robot.getArmControlJoystick().getRawAxis(5);
+    if (Math.abs(deltaPos) > 0.4) {
+      rotations += deltaPos * 0.5;
     }
 
     m_pidController.setReference(rotations, CANSparkMax.ControlType.kPosition);
-
   }
 
   // Called once the command ends or is interrupted.

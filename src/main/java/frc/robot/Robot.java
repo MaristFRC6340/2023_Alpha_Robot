@@ -39,6 +39,7 @@ public class Robot extends TimedRobot {
   private static final String kRed3 = "Red3";
   private static final String kExampleAuto = "Example";
   private static final String kWristRotateTestCommand = "Wrist Rotate Test";
+  private static final String kPIDWristTestCommand = "Wrist PID Test Command";
 
   private String m_autoSelected;
   private final SendableChooser<String> m_chooser = new SendableChooser();
@@ -64,8 +65,9 @@ public class Robot extends TimedRobot {
     m_chooser.addOption("Red3", kRed3);
     m_chooser.addOption("Example Auto", kExampleAuto);
     m_chooser.addOption("Wrist Rotate Test", kWristRotateTestCommand);
+    m_chooser.addOption("Wrist PID Test", kPIDWristTestCommand);
 
-    String[] choices = {kBlue1, kBlue2, kBlue3, kRed1, kRed2, kRed3, kExampleAuto, kWristRotateTestCommand};
+    String[] choices = {kBlue1, kBlue2, kBlue3, kRed1, kRed2, kRed3, kExampleAuto, kWristRotateTestCommand, kPIDWristTestCommand};
     SmartDashboard.putStringArray("Auto List", choices);
   }
 
@@ -96,28 +98,35 @@ public class Robot extends TimedRobot {
   @Override
   public void autonomousInit() {
 
-    //m_autonomousCommand = m_robotContainer.getAutoBlueOne();
-
-    m_autoSelected = SmartDashboard.getString("Auto Selection", kDefaultOption);
+    m_autoSelected = SmartDashboard.getString("Auto Selector", kDefaultOption);
+    System.out.println("Auto selected: " + m_autoSelected);
 
     switch (m_autoSelected) {
       case kBlue1:
+        System.out.println("Blue1");
         m_autonomousCommand = m_robotContainer.getAutoBlueOne();
         break;
       case kExampleAuto:
+        System.out.println("Example Auto");
         m_autonomousCommand = m_robotContainer.getAutonomousCommand();
         break;
       case kWristRotateTestCommand:
-        m_autonomousCommand = m_robotContainer.getWristRotateTestCommand();
+        System.out.println("Wrist Auto Rotate Command");
+        //m_autonomousCommand = m_robotContainer.getWristRotateTestCommand();
+        break;
+      case kPIDWristTestCommand:
+        System.out.println("Wrist PID Command Test");
+        //m_autonomousCommand = m_robotContainer.getWristPIDCommandTest();
         break;
       case kDefaultOption:
+        System.out.println("Default");
         default:
         break;
     }
 
     //m_autonomousCommand = m_robotContainer.getWristRotateTestCommand();
 
-    m_autonomousCommand = m_robotContainer.getWristPIDCommandTest();
+    //m_autonomousCommand = m_robotContainer.getWristPIDCommandTest();
 
 
     /*
@@ -147,6 +156,7 @@ public class Robot extends TimedRobot {
       m_autonomousCommand.cancel();
     }
     m_robotContainer.getArmCommand().schedule();
+    m_robotContainer.getWristTeleopCommant().schedule();
     m_robotContainer.getDriveCommand().schedule();
   }
 

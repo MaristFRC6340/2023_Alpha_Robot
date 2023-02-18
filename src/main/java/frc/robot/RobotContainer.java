@@ -24,8 +24,10 @@ import frc.robot.commands.ArmCommand;
 import frc.robot.commands.DriveCommand;
 import frc.robot.commands.WristRotatePIDTestCommand;
 import frc.robot.commands.WristRotateTestCommand;
+import frc.robot.commands.WristTeleopCommand;
 import frc.robot.subsystems.ArmSubsystem;
 import frc.robot.subsystems.DriveSubsystem;
+import frc.robot.subsystems.WristSubsystem;
 import edu.wpi.first.wpilibj2.command.Command;
 import edu.wpi.first.wpilibj2.command.RunCommand;
 import edu.wpi.first.wpilibj2.command.SwerveControllerCommand;
@@ -42,6 +44,7 @@ public class RobotContainer {
   // The robot's subsystems
   private final DriveSubsystem m_robotDrive = new DriveSubsystem();
   private final ArmSubsystem m_armSubsystem = new ArmSubsystem();
+  private final WristSubsystem m_wristSubsystem = new WristSubsystem();
 
   private final ArmCommand armCommand = new ArmCommand(m_armSubsystem);
 
@@ -100,11 +103,17 @@ public class RobotContainer {
     // An example trajectory to follow. All units in meters.
     Trajectory exampleTrajectory = TrajectoryGenerator.generateTrajectory(
         // Start at the origin facing the +X direction
-        new Pose2d(0, 0, new Rotation2d(0)),
+        new Pose2d(0, 0, new Rotation2d(180)),
         // Pass through these two interior waypoints, making an 's' curve path
-        List.of(new Translation2d(1, 0)),
+        List.of(new Translation2d(.1, 0),
+                new Translation2d(1, 0.5), 
+                new Translation2d(1.5, .5),
+                new Translation2d(2, 1),
+                new Translation2d(2.5, 1.25)),
+
+        //List.of(new Pose2d(1, 0, new Rotation2d(180))),
         // End 3 meters straight ahead of where we started, facing forward
-        new Pose2d(2, 0, new Rotation2d(0)),
+        new Pose2d(3, 1, new Rotation2d(180)),
         config);
 
     var thetaController = new ProfiledPIDController(
@@ -129,6 +138,7 @@ public class RobotContainer {
     // Run path following command, then stop at the end.
     return swerveControllerCommand.andThen(() -> m_robotDrive.drive(0, 0, 0, false));
   }
+  
   public Command getArmCommand(){
     return armCommand;
   }
@@ -142,11 +152,15 @@ public class RobotContainer {
   }
 
   public Command getWristRotateTestCommand() {
-    return new WristRotateTestCommand(m_armSubsystem, -100);
+    return new WristRotateTestCommand(m_wristSubsystem, -100);
   }
 
   public Command getWristPIDCommandTest() {
-    return new WristRotatePIDTestCommand(m_armSubsystem, 0);
+    return new WristRotatePIDTestCommand(m_wristSubsystem, 0);
+  }
+
+  public Command getWristTeleopCommant() {
+    return new WristTeleopCommand(m_wristSubsystem, 10);
   }
 
 }
