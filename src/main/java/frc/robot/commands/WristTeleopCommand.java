@@ -2,6 +2,8 @@
 // Open Source Software; you can modify and/or share it under the terms of
 // the WPILib BSD license file in the root directory of this project.
 
+// This is for Teleoperation
+
 package frc.robot.commands;
 
 import com.revrobotics.CANSparkMax;
@@ -21,7 +23,6 @@ private WristSubsystem wrist;
 private CANSparkMax m_motor;
 private SparkMaxPIDController m_pidController;
 private RelativeEncoder m_encoder;
-public double kP, kI, kD, kIz, kFF, kMaxOutput, kMinOutput;
 
 private double rotations = 0;
 
@@ -29,28 +30,12 @@ private double rotations = 0;
   public WristTeleopCommand(WristSubsystem wrist, double rotations) {
     // Use addRequirements() here to declare subsystem dependencies.
     this.wrist = wrist;
-    this.rotations = rotations;
+    this.rotations = wrist.getCurrentRotation();
 
     m_motor = wrist.getWristMotor();
 
-    m_pidController = m_motor.getPIDController();
-
     m_encoder = m_motor.getEncoder();
 
-    kP = 0.1;
-    kI = 1e-4;
-    kD = 1;
-    kIz = 0;
-    kFF = 0;
-    kMaxOutput = 0.25;
-    kMinOutput = -0.25;
-
-    m_pidController.setP(kP);
-    m_pidController.setI(kI);
-    m_pidController.setD(kD);
-    m_pidController.setIZone(kIz);
-    m_pidController.setFF(kFF);
-    m_pidController.setOutputRange(kMinOutput, kMaxOutput);
   }
 
   // Called when the command is initially scheduled.
@@ -95,7 +80,8 @@ private double rotations = 0;
       rotations += deltaPos * 0.5;
     }
 
-    m_pidController.setReference(rotations, CANSparkMax.ControlType.kPosition);
+    //m_pidController.setReference(rotations, CANSparkMax.ControlType.kPosition);
+    wrist.setWristReference(rotations);
   }
 
   // Called once the command ends or is interrupted.
