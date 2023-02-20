@@ -37,6 +37,15 @@ public class ArmCommand extends CommandBase {
       arm.armDown();
     }
 
+    // Compressor Control - POV Button
+    if (Robot.getArmControlJoystick().getPOV() == 0) {
+      arm.turnCompressorOn();
+    }
+
+    if (Robot.getArmControlJoystick().getPOV() == 180) {
+      arm.turnCompressorOff();
+    }
+
     // if(Robot.getArmControlJoystick().getRawButton(3)) {
     //   arm.setRotations(100);
     // }

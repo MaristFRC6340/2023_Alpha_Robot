@@ -12,10 +12,10 @@ public class IntakeTimeCommand extends CommandBase {
   /** Creates a new IntakeTimeCommand. */
 
   private final ArmSubsystem arm;
-  long startTime = 0;
-  long endTime = 0;
-  double duration = 0;
-  double intakePower = 0;
+  private long startTime = 0;
+  private long endTime = 0;
+  private double duration = 0;
+  private double intakePower = 0;
   
   public IntakeTimeCommand(ArmSubsystem arm, double power, double time) {
     // Use addRequirements() here to declare subsystem dependencies.

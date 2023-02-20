@@ -16,6 +16,7 @@ import edu.wpi.first.math.trajectory.TrajectoryGenerator;
 import edu.wpi.first.wpilibj.XboxController;
 import edu.wpi.first.wpilibj.PS4Controller.Button;
 import frc.robot.Autos.AutoBlueOne;
+import frc.robot.Autos.DriveTimeTestCommand;
 import frc.robot.Autos.ExampleAuto;
 import frc.robot.Constants.AutoConstants;
 import frc.robot.Constants.DriveConstants;
@@ -144,7 +145,7 @@ public class RobotContainer {
   }
 
   public Command getAutoBlueOne() {
-    return new AutoBlueOne(m_armSubsystem);
+    return new AutoBlueOne(m_armSubsystem, m_wristSubsystem, m_robotDrive);
   }
 
   public Command getDriveCommand() {
@@ -161,6 +162,11 @@ public class RobotContainer {
 
   public Command getWristTeleopCommant() {
     return new WristTeleopCommand(m_wristSubsystem, 10);
+  }
+
+  // Test of DriveTimeTestCommand
+  public Command getDriveTimeTestCommand() {
+    return new DriveTimeTestCommand(m_robotDrive, -0.15, 0, 0, 1);
   }
 
 }

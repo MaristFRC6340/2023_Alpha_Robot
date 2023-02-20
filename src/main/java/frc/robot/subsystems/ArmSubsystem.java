@@ -21,6 +21,7 @@ import com.revrobotics.SparkMaxPIDController;
 import com.revrobotics.CANSparkMaxLowLevel.MotorType;
 
 import edu.wpi.first.math.controller.PIDController;
+import edu.wpi.first.wpilibj.Compressor;
 import edu.wpi.first.wpilibj.DoubleSolenoid;
 import edu.wpi.first.wpilibj.PneumaticsModuleType;
 import edu.wpi.first.wpilibj.DoubleSolenoid.Value;
@@ -35,6 +36,8 @@ public class ArmSubsystem extends SubsystemBase {
     private CANSparkMax armLengthMotor; // Remove Wrist motor 18 Feb 23 michaudc
     private Spark intakeLeftMotor;
 
+    private Compressor compressor;
+
 
   /** Creates a new Intake. */
   public ArmSubsystem() {
@@ -42,6 +45,10 @@ public class ArmSubsystem extends SubsystemBase {
     armSol = new DoubleSolenoid(2, PneumaticsModuleType.CTREPCM,0,1);
     intakeSolLeft = new DoubleSolenoid(2, PneumaticsModuleType.CTREPCM, 3, 4);
     intakeSolRight = new DoubleSolenoid(2, PneumaticsModuleType.CTREPCM, 5, 6);
+
+    // Added 20 Feb 23 to control compressor state michaudc
+    compressor = new Compressor(2, PneumaticsModuleType.CTREPCM);
+    compressor.enableDigital();
     
     armLengthMotor = new CANSparkMax(6, MotorType.kBrushed);
     //armAngleMotor = new CANSparkMax(5, MotorType.kBrushless);
@@ -91,6 +98,14 @@ public void setWristMotorPower(double power){
 
 public void setIntakeLeftMotorPower(double power){
   intakeLeftMotor.set(power);
+}
+
+public void turnCompressorOn() {
+  compressor.enableDigital();
+}
+
+public void turnCompressorOff() {
+  compressor.disable();
 }
 
 /* removed 18 Feb 23 michaudc
