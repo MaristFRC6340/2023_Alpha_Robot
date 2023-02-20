@@ -160,7 +160,7 @@ public class RobotContainer {
     return new WristRotatePIDTestCommand(m_wristSubsystem, 0);
   }
 
-  public Command getWristTeleopCommant() {
+  public Command getWristTeleopCommand() {
     return new WristTeleopCommand(m_wristSubsystem, 10);
   }
 

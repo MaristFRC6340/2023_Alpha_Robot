@@ -7,6 +7,7 @@ package frc.robot.Autos;
 import edu.wpi.first.wpilibj2.command.SequentialCommandGroup;
 import edu.wpi.first.wpilibj2.command.WaitCommand;
 import frc.robot.commands.IntakeTimeCommand;
+import frc.robot.commands.WristSetPositionCommand;
 import frc.robot.subsystems.ArmSubsystem;
 import frc.robot.subsystems.DriveSubsystem;
 import frc.robot.subsystems.WristSubsystem;
@@ -21,7 +22,9 @@ public class AutoBlueOne extends SequentialCommandGroup {
     // addCommands(new FooCommand(), new BarCommand());
 
     // Test Sequence of Placing Object then moving backwards
-    addCommands(new IntakeTimeCommand(arm, -0.75, 2),
+    addCommands(
+    new WristSetPositionCommand(wrist, 10),
+    new IntakeTimeCommand(arm, -0.75, 2),
     new WaitCommand(1),
     new DriveTimeTestCommand(drive, -.15, 0, 0, 2));
   }

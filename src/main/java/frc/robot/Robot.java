@@ -157,7 +157,7 @@ public class Robot extends TimedRobot {
       m_autonomousCommand.cancel();
     }
     m_robotContainer.getArmCommand().schedule();
-    m_robotContainer.getWristTeleopCommant().schedule();
+    m_robotContainer.getWristTeleopCommand().schedule();
     m_robotContainer.getDriveCommand().schedule();
   }
 
