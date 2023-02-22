@@ -10,16 +10,28 @@ import frc.robot.subsystems.ArmSubsystem;
 public class ArmDownCommand extends CommandBase {
 
   private final ArmSubsystem arm;
+  private double duration;
 
+  private long startTime;
+  private long endTime;
   /** Creates a new ArmDownCommand. */
   public ArmDownCommand(ArmSubsystem arm) {
     // Use addRequirements() here to declare subsystem dependencies.
     this.arm = arm;
+    duration = 1;
+  }
+
+  public ArmDownCommand(ArmSubsystem arm, double duration) {
+    this.arm = arm;
+    this.duration = duration;
   }
 
   // Called when the command is initially scheduled.
   @Override
-  public void initialize() {}
+  public void initialize() {
+    startTime = System.currentTimeMillis();
+    endTime = startTime + (long)(duration * 1000);
+  }
 
   // Called every time the scheduler runs while the command is scheduled.
   @Override
@@ -34,6 +46,12 @@ public class ArmDownCommand extends CommandBase {
   // Returns true when the command should end.
   @Override
   public boolean isFinished() {
-    return false;
+    long currentTime = System.currentTimeMillis();
+    if (currentTime < endTime) {
+      return false;
+    }
+    else {
+      return true;
+    }
   }
 }

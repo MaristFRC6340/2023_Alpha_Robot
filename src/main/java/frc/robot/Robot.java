@@ -109,6 +109,10 @@ public class Robot extends TimedRobot {
         System.out.println("Blue1");
         m_autonomousCommand = m_robotContainer.getAutoBlueOne();
         break;
+      case kBlue2:
+        System.out.println("Blue2");
+        m_autonomousCommand = m_robotContainer.getAutoBlueTwo();
+        break;
       case kExampleAuto:
         System.out.println("Example Auto");
         m_autonomousCommand = m_robotContainer.getAutonomousCommand();
@@ -119,7 +123,7 @@ public class Robot extends TimedRobot {
         break;
       case kPIDWristTestCommand:
         System.out.println("Wrist PID Command Test");
-        //m_autonomousCommand = m_robotContainer.getWristPIDCommandTest();
+        m_autonomousCommand = m_robotContainer.getWristPIDCommandTest();
         break;
       case kDriveTimeTestCommand:
         System.out.println("Drive Time Test Command");

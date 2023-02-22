@@ -22,9 +22,9 @@ public class WristSubsystem extends SubsystemBase {
 
         m_pidController = wristMotor.getPIDController();
 
-        kP = 0.1;
+        kP = 0.5;
         kI = 1e-4;
-        kD = 1;
+        kD = 3;
         kIz = 0;
         kFF = 0;
         kMaxOutput = 0.25;
