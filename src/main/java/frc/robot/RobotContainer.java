@@ -15,10 +15,13 @@ import edu.wpi.first.math.trajectory.TrajectoryConfig;
 import edu.wpi.first.math.trajectory.TrajectoryGenerator;
 import edu.wpi.first.wpilibj.XboxController;
 import edu.wpi.first.wpilibj.PS4Controller.Button;
+import frc.robot.Autos.AutoBlueHighCone;
 import frc.robot.Autos.AutoBlueOne;
 import frc.robot.Autos.AutoBlueTwo;
+import frc.robot.Autos.AutoRampClimb;
 import frc.robot.Autos.DriveTimeTestCommand;
 import frc.robot.Autos.ExampleAuto;
+import frc.robot.Autos.ShootCubeHighSequence;
 import frc.robot.Constants.AutoConstants;
 import frc.robot.Constants.DriveConstants;
 import frc.robot.Constants.OIConstants;
@@ -172,6 +175,17 @@ public class RobotContainer {
 
   public Command getAutoBlueTwo() {
     return new AutoBlueTwo(m_armSubsystem, m_wristSubsystem, m_robotDrive);
+  }
+
+  public Command getCubeShootSequence() {
+    return new ShootCubeHighSequence(m_robotDrive, m_armSubsystem, m_wristSubsystem);
+  }
+
+  public Command getHighConeCommand() {
+    return new AutoBlueHighCone(m_robotDrive, m_armSubsystem, m_wristSubsystem);
+  }
+  public Command getRampCommand(){
+    return new AutoRampClimb(m_robotDrive, m_armSubsystem, m_wristSubsystem);
   }
 
 }

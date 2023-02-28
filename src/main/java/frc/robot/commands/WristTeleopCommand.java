@@ -46,7 +46,7 @@ private double rotations = 0;
   @Override
   public void execute() {
 
-    System.out.println(rotations);
+    //System.out.println(rotations);
 
     // Use Laddered If Statements for setting rotations state
     // If / Else Statements are for Motor States

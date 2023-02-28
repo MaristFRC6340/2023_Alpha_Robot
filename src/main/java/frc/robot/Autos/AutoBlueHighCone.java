@@ -7,6 +7,7 @@ package frc.robot.Autos;
 import edu.wpi.first.wpilibj2.command.SequentialCommandGroup;
 import edu.wpi.first.wpilibj2.command.WaitCommand;
 import frc.robot.commands.ArmDownCommand;
+import frc.robot.commands.ArmLengthCommand;
 import frc.robot.commands.ArmUpCommand;
 import frc.robot.commands.IntakeTimeCommand;
 import frc.robot.commands.WristSetPositionCommand;
@@ -17,24 +18,23 @@ import frc.robot.subsystems.WristSubsystem;
 // NOTE:  Consider using this command inline, rather than writing a subclass.  For more
 // information, see:
 // https://docs.wpilib.org/en/stable/docs/software/commandbased/convenience-features.html
-public class AutoBlueTwo extends SequentialCommandGroup {
-  /** Creates a new AutoBlueTwo. */
-  public AutoBlueTwo(ArmSubsystem arm, WristSubsystem wrist, DriveSubsystem drive) {
-
+public class AutoBlueHighCone extends SequentialCommandGroup {
+  /** Creates a new AutoBlueHighCone. */
+  public AutoBlueHighCone(DriveSubsystem drive, ArmSubsystem arm, WristSubsystem wrist) {
     // Add your commands in the addCommands() call, e.g.
     // addCommands(new FooCommand(), new BarCommand());
     addCommands(
       new ArmUpCommand(arm),
+      new WaitCommand(.5),
+      new ArmLengthCommand(arm, -.5, 1.75),
+      new WristSetPositionCommand(wrist, 30),
       new WaitCommand(1),
-      new WristSetPositionCommand(wrist, 50),
-      new WaitCommand(2),
-      new IntakeTimeCommand(arm, 0.4, 2),
-      new WaitCommand(1),
-      new WristSetPositionCommand(wrist, 10),
-      new WaitCommand(1),
-      new ArmDownCommand(arm),
-      new WaitCommand(1),
-      new DriveTimeTestCommand(drive, -.15, 0, 0, 6)
+      new IntakeTimeCommand(arm, 0.8, 1),
+      new WristSetPositionCommand(wrist, 5),
+      new ArmLengthCommand(arm, .5, 1.95),
+      new ArmDownCommand(arm)
+      //new WaitCommand(1),
+      //new DriveTimeTestCommand(drive, -.15, 0, 0, 6)
     );
   }
 }

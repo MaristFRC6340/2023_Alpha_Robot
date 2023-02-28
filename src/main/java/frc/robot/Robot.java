@@ -6,8 +6,10 @@
 
 package frc.robot;
 
+import edu.wpi.first.wpilibj.BuiltInAccelerometer;
 import edu.wpi.first.wpilibj.Joystick;
 import edu.wpi.first.wpilibj.TimedRobot;
+import edu.wpi.first.wpilibj.interfaces.Accelerometer;
 import edu.wpi.first.wpilibj.smartdashboard.SendableChooser;
 import edu.wpi.first.wpilibj.smartdashboard.SmartDashboard;
 import edu.wpi.first.wpilibj2.command.Command;
@@ -29,6 +31,9 @@ public class Robot extends TimedRobot {
   private static Joystick m_armControlJoystick = new Joystick(Constants.OIConstants.kArmControllerPort); // Port zero for left joystick
   private static Joystick m_driverControlJoystick = new Joystick(Constants.OIConstants.kDriverControllerPort);
 
+
+  private static Accelerometer accelerometer = new BuiltInAccelerometer();
+
   //Smart Dashboard and Auto Chooser
   private static final String kDefaultOption = "Default";
   private static final String kBlue1 = "Blue1";
@@ -41,9 +46,14 @@ public class Robot extends TimedRobot {
   private static final String kWristRotateTestCommand = "Wrist Rotate Test";
   private static final String kPIDWristTestCommand = "Wrist PID Test Command";
   private static final String kDriveTimeTestCommand = "Drive Time Test Command";
+  private static final String kShootCubeHighCommand = "Shoot Cube High Sequence";
+  private static final String kBlueHighCone = "Auto Blue High Cone";
+  private static final String kRampClimb = "Ramp Climb";
 
   private String m_autoSelected;
   private final SendableChooser<String> m_chooser = new SendableChooser();
+
+
 
   /**
    * This function is run when the robot is first started up and should be used for any
@@ -68,9 +78,12 @@ public class Robot extends TimedRobot {
     m_chooser.addOption("Wrist Rotate Test", kWristRotateTestCommand);
     m_chooser.addOption("Wrist PID Test", kPIDWristTestCommand);
     m_chooser.addOption("Drive Time Test", kDriveTimeTestCommand);
+    m_chooser.addOption("Shoot Cube High Sequence", kShootCubeHighCommand);
+    m_chooser.addOption("Auto Blue High Cone", kBlueHighCone);
+    m_chooser.addOption("RampClimb", kRampClimb );
 
     String[] choices = {kBlue1, kBlue2, kBlue3, kRed1, kRed2, kRed3, kExampleAuto, kWristRotateTestCommand, 
-                        kPIDWristTestCommand, kDriveTimeTestCommand};
+                        kPIDWristTestCommand, kDriveTimeTestCommand, kShootCubeHighCommand, kBlueHighCone,kRampClimb};
     SmartDashboard.putStringArray("Auto List", choices);
   }
 
@@ -128,6 +141,16 @@ public class Robot extends TimedRobot {
       case kDriveTimeTestCommand:
         System.out.println("Drive Time Test Command");
         m_autonomousCommand = m_robotContainer.getDriveTimeTestCommand();
+        break;
+      case kShootCubeHighCommand:
+        m_autonomousCommand = m_robotContainer.getCubeShootSequence();
+        break;
+      case kBlueHighCone:
+        m_autonomousCommand = m_robotContainer.getHighConeCommand();
+        break;
+      case kRampClimb:
+        m_autonomousCommand = m_robotContainer.getRampCommand();
+        break;
       case kDefaultOption:
         System.out.println("Default");
         default:
@@ -185,6 +208,10 @@ public class Robot extends TimedRobot {
 
   public static Joystick getDriveControlJoystick() {
     return m_driverControlJoystick;
+  }
+
+  public static Accelerometer getRioAccell() {
+    return accelerometer;
   }
 
 }

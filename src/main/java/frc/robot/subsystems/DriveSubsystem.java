@@ -73,6 +73,7 @@ public class DriveSubsystem extends SubsystemBase {
         SmartDashboard.putNumber("Module 1 azimuth", m_frontRight.getAngle());
         SmartDashboard.putNumber("Module 2 azimuth", m_rearLeft.getAngle());
         SmartDashboard.putNumber("Module 3 azimuth", m_rearRight.getAngle());
+        SmartDashboard.putNumber("Module 0 distance", m_frontLeft.getPosition().distanceMeters);
         SmartDashboard.putNumber("Gyro", m_gyro.getAngle());
   }
 
@@ -183,4 +184,12 @@ public class DriveSubsystem extends SubsystemBase {
   public double getTurnRate() {
     return m_gyro.getRate() * (DriveConstants.kGyroReversed ? -1.0 : 1.0);
   }
+
+  /**
+   * Returns the distance of drive motor of Module 0
+   */
+  public double getLeftModuleDistance() {
+    return m_frontLeft.getPosition().distanceMeters;
+  }
+
 }
