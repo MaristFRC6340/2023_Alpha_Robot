@@ -5,6 +5,9 @@
 package frc.robot.commands;
 
 import edu.wpi.first.math.MathUtil;
+import edu.wpi.first.networktables.NetworkTable;
+import edu.wpi.first.networktables.NetworkTableEntry;
+import edu.wpi.first.networktables.NetworkTableInstance;
 import edu.wpi.first.wpilibj2.command.CommandBase;
 import frc.robot.Robot;
 import frc.robot.Constants.DriveConstants;
@@ -17,16 +20,37 @@ public class DriveCommand extends CommandBase {
 
   private double speedControl = 0.5;
 
+  // Limelight Fields
+  private NetworkTable limTable;
+  private NetworkTableEntry tx;
+  private NetworkTableEntry ledMode;
+
+  // PID Control for Limelight Turn
+  private double kP = 0.03;
+
+  // For PID Control
+  double turnPower = 0;
+
 
   /** Creates a new DriveCommand. */
   public DriveCommand(DriveSubsystem drive) {
+
+    // Limelight Initialization
+    limTable = NetworkTableInstance.getDefault().getTable("limelight");
+    tx = limTable.getEntry("tx");
+    ledMode = limTable.getEntry("ledMode");
+
+    
+
     // Use addRequirements() here to declare subsystem dependencies.
     m_robotDrive = drive;
   }
 
   // Called when the command is initially scheduled.
   @Override
-  public void initialize() {}
+  public void initialize() {
+    ledMode.setDouble(1);
+  }
 
   double leftX = 0;
   double leftY = 0;
@@ -40,7 +64,21 @@ public class DriveCommand extends CommandBase {
 
     leftX = Robot.getDriveControlJoystick().getRawAxis(0);
     leftY = Robot.getDriveControlJoystick().getRawAxis(1);
-    rightX = Robot.getDriveControlJoystick().getRawAxis(4);
+    rightX = Robot.getDriveControlJoystick().getRawAxis(4) + turnPower; // Adjust for PID Limelight
+
+
+    if (Robot.getDriveControlJoystick().getRawAxis(2) > 0.5) {
+      ledMode.setDouble(3);
+      double error = tx.getDouble(0);
+      turnPower = kP * error;
+      System.out.println(tx.getDouble(0) + ", " + turnPower);
+      
+    }
+    else {
+      ledMode.setDouble(1);
+      turnPower = 0;
+    }
+
 
 
     m_robotDrive.drive(

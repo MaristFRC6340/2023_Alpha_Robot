@@ -47,6 +47,7 @@ public class RampClimbBangBang extends CommandBase {
       totalDeltaX += deltaXValues[i];
     }
 
+
     avgDeltaX = totalDeltaX/deltaXValues.length;
     count++;
     if(count > deltaXValues.length-1){
@@ -56,13 +57,13 @@ public class RampClimbBangBang extends CommandBase {
     frameCount++;
 
     if(frameCount > 50){
-      m_drive.drive(.1, 0, 0, false);
+      //m_drive.drive(.1, 0, 0, false);
     }
     if(frameCount > 150){
-      m_drive.drive(.075, 0, 0, false);
+      //m_drive.drive(.075, 0, 0, false);
     }
     if(frameCount > 250){
-      m_drive.drive(.05, 0, 0, false);
+      //m_drive.drive(.05, 0, 0, false);
     }
   }
 
@@ -76,6 +77,16 @@ public class RampClimbBangBang extends CommandBase {
   // Returns true when the command should end.
   @Override
   public boolean isFinished() {
+
+    System.out.println("DeltaX: " + avgDeltaX);
+
+    if (avgDeltaX > -0.15) {
+      if (frameCount > 100) {
+        //return true;
+      } else {
+        return false;
+      }
+    }
 
     System.out.println(avgDeltaX);
     return false;
