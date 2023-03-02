@@ -57,13 +57,13 @@ public class RampClimbBangBang extends CommandBase {
     frameCount++;
 
     if(frameCount > 50){
-      //m_drive.drive(.1, 0, 0, false);
+      m_drive.drive(-0.1, 0, 0, false);
     }
-    if(frameCount > 150){
-      //m_drive.drive(.075, 0, 0, false);
+    if(frameCount > 100){
+      m_drive.drive(-0.075, 0, 0, false);
     }
     if(frameCount > 250){
-      //m_drive.drive(.05, 0, 0, false);
+      m_drive.drive(-0.075, 0, 0, false);
     }
   }
 
@@ -72,6 +72,7 @@ public class RampClimbBangBang extends CommandBase {
   public void end(boolean interrupted) {
 
     m_drive.drive(0, 0, 0, false);
+    m_drive.setX();
   }
 
   // Returns true when the command should end.
@@ -82,13 +83,12 @@ public class RampClimbBangBang extends CommandBase {
 
     if (avgDeltaX > -0.15) {
       if (frameCount > 100) {
-        //return true;
+        return true;
       } else {
         return false;
       }
     }
 
-    System.out.println(avgDeltaX);
     return false;
   }
 }

@@ -46,28 +46,28 @@ private double rotations = 0;
   @Override
   public void execute() {
 
-    //System.out.println(rotations);
+    System.out.println(rotations);
 
     // Use Laddered If Statements for setting rotations state
     // If / Else Statements are for Motor States
-    // Button: A: Home Positions
+    // Button: A: Wrist Down Floor
     if (Robot.getArmControlJoystick().getRawButton(1)) {
-      rotations = 5;
+      rotations = 38;
     }
 
     // Button: B: Home Positions
     if (Robot.getArmControlJoystick().getRawButton(2)) {
-      rotations = 10;
+      rotations = 0;
     } 
 
     // Button: X: Shelf Pickup Position
     if (Robot.getArmControlJoystick().getRawButton(3)) {
-      rotations = 51;
+      rotations = 50;
     }
 
-    // Button: Y: Pickup from Floor
+    // Button: Y: Deliver
     if (Robot.getArmControlJoystick().getRawButton(4)) {
-      rotations = 33;
+      rotations = 43;
     }
 
     // Protect it going under 0

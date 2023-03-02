@@ -24,17 +24,14 @@ public class AutoBlueHighCone extends SequentialCommandGroup {
     // Add your commands in the addCommands() call, e.g.
     // addCommands(new FooCommand(), new BarCommand());
     addCommands(
-      new ArmUpCommand(arm),
-      new WaitCommand(.5),
+      new ArmUpCommand(arm, 2),
       new ArmLengthCommand(arm, -.5, 1.75),
-      new WristSetPositionCommand(wrist, 30),
-      new WaitCommand(1),
+      new WristSetPositionCommand(wrist, 33, 2),
       new IntakeTimeCommand(arm, 0.8, 1),
       new WristSetPositionCommand(wrist, 5),
       new ArmLengthCommand(arm, .5, 1.95),
-      new ArmDownCommand(arm)
-      //new WaitCommand(1),
-      //new DriveTimeTestCommand(drive, -.15, 0, 0, 6)
+      new ArmDownCommand(arm, 0.1),
+      new DriveTimeTestCommand(drive, -.3, 0, 0, 3)
     );
   }
 }

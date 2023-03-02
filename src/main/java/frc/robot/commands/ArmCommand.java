@@ -30,10 +30,10 @@ public class ArmCommand extends CommandBase {
   public void execute() {
 
     // Arm Control
-    if(Robot.getArmControlJoystick().getRawButton(5)){ // lb
+    if(Robot.getArmControlJoystick().getRawButton(6)){ // rb
       arm.armUp();
     }
-    if(Robot.getArmControlJoystick().getRawButton(6)){ // rb
+    if(Robot.getArmControlJoystick().getRawButton(5)){ // lb
       arm.armDown();
     }
 

@@ -73,6 +73,7 @@ public class DriveEncoderCommand extends CommandBase {
   @Override
   public void end(boolean interrupted) {
     m_robot.drive(0, 0, 0, false);
+    m_robot.setX();
   }
 
   // Returns true when the command should end.

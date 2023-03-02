@@ -85,11 +85,11 @@ public class DriveCommand extends CommandBase {
                 MathUtil.applyDeadband(-leftY*speedControl, 0.06),
                 MathUtil.applyDeadband(-leftX*speedControl, 0.06),
                 MathUtil.applyDeadband(-rightX*speedControl, 0.06),
-                false);
+                true);
 
                 
-    if(Robot.getDriveControlJoystick().getRawButton(9)){ // Left Stick Button
-      m_robotDrive.zeroHeading();
+    if(Robot.getDriveControlJoystick().getPOV()!=-1){ // Left Stick Button
+      m_robotDrive.zeroHeading(Robot.getDriveControlJoystick().getPOV());
     }
 
     // Speed Control

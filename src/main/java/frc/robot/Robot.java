@@ -85,6 +85,8 @@ public class Robot extends TimedRobot {
     String[] choices = {kBlue1, kBlue2, kBlue3, kRed1, kRed2, kRed3, kExampleAuto, kWristRotateTestCommand, 
                         kPIDWristTestCommand, kDriveTimeTestCommand, kShootCubeHighCommand, kBlueHighCone,kRampClimb};
     SmartDashboard.putStringArray("Auto List", choices);
+
+
   }
 
   /**

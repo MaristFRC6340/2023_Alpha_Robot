@@ -74,6 +74,7 @@ public class DriveTimeTestCommand extends CommandBase {
   public void end(boolean interrupted) {
     // Stop the Robot
     m_robot.drive(0, 0, 0, false);
+    m_robot.setX();
   }
 
   // Returns true when the command should end.
