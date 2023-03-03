@@ -62,12 +62,12 @@ private double rotations = 0;
 
     // Button: X: Shelf Pickup Position
     if (Robot.getArmControlJoystick().getRawButton(3)) {
-      rotations = 50;
+      rotations = 43;
     }
 
     // Button: Y: Deliver
     if (Robot.getArmControlJoystick().getRawButton(4)) {
-      rotations = 43;
+      rotations = 34;
     }
 
     // Protect it going under 0

@@ -25,7 +25,7 @@ public class AutoRampClimb extends SequentialCommandGroup {
       new DriveTimeTestCommand(drive, -0.18, 0, 0, 3),
       new RampClimbBangBang(drive),
       //new DriveEncoderCommand(drive, 0.1, 0, 0, 0.05)
-      new DriveTimeTestCommand(drive, 0.1, 0, 0, .15)
+      new DriveTimeTestCommand(drive, 0.15, 0, 0, .175)
     );
   }
 }

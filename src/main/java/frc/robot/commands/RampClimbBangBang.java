@@ -55,15 +55,15 @@ public class RampClimbBangBang extends CommandBase {
     }
 
     frameCount++;
-
+// add time delay for robot while it is tipping because the robot is nto getting contct with the ramp
     if(frameCount > 50){
       m_drive.drive(-0.1, 0, 0, false);
     }
     if(frameCount > 100){
-      m_drive.drive(-0.075, 0, 0, false);
+      m_drive.drive(-0.1, 0, 0, false);
     }
     if(frameCount > 250){
-      m_drive.drive(-0.075, 0, 0, false);
+      m_drive.drive(-0.1, 0, 0, false);
     }
   }
 
@@ -81,7 +81,7 @@ public class RampClimbBangBang extends CommandBase {
 
     System.out.println("DeltaX: " + avgDeltaX);
 
-    if (avgDeltaX > -0.15) {
+    if (avgDeltaX > -0.23) {
       if (frameCount > 100) {
         return true;
       } else {

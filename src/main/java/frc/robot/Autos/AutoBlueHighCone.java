@@ -7,8 +7,10 @@ package frc.robot.Autos;
 import edu.wpi.first.wpilibj2.command.SequentialCommandGroup;
 import edu.wpi.first.wpilibj2.command.WaitCommand;
 import frc.robot.commands.ArmDownCommand;
+import frc.robot.commands.ArmDownWristSetPositionCommand;
 import frc.robot.commands.ArmLengthCommand;
 import frc.robot.commands.ArmUpCommand;
+import frc.robot.commands.ArmUpWristSetPositionCommand;
 import frc.robot.commands.IntakeTimeCommand;
 import frc.robot.commands.WristSetPositionCommand;
 import frc.robot.subsystems.ArmSubsystem;
@@ -24,14 +26,20 @@ public class AutoBlueHighCone extends SequentialCommandGroup {
     // Add your commands in the addCommands() call, e.g.
     // addCommands(new FooCommand(), new BarCommand());
     addCommands(
-      new ArmUpCommand(arm, 2),
-      new ArmLengthCommand(arm, -.5, 1.75),
-      new WristSetPositionCommand(wrist, 33, 2),
-      new IntakeTimeCommand(arm, 0.8, 1),
-      new WristSetPositionCommand(wrist, 5),
-      new ArmLengthCommand(arm, .5, 1.95),
-      new ArmDownCommand(arm, 0.1),
-      new DriveTimeTestCommand(drive, -.3, 0, 0, 3)
+      new ArmUpWristSetPositionCommand(arm, wrist, 2, 33),
+      new ArmLengthCommand(arm, -.65, 1.35),
+      new IntakeTimeCommand(arm, 0.8,.75),
+      new ArmLengthCommand(arm, 0.65, 1.45),
+      new ArmDownWristSetPositionCommand(arm, wrist, 1.5, 0),
+      new AutoRampClimb(drive, arm, wrist)
+      // new ArmUpCommand(arm, 2),
+      // new ArmLengthCommand(arm, -.5, 1.75),
+      // new WristSetPositionCommand(wrist, 33, 2),
+      // new IntakeTimeCommand(arm, 0.8, 1),
+      // new WristSetPositionCommand(wrist, 5),
+      // new ArmLengthCommand(arm, .5, 1.95),
+      // new ArmDownCommand(arm, 0.1),
+      // new DriveTimeTestCommand(drive, -.3, 0, 0, 3)
     );
   }
 }
