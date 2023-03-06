@@ -26,13 +26,18 @@ public class AutoBlueHighCone extends SequentialCommandGroup {
     // Add your commands in the addCommands() call, e.g.
     // addCommands(new FooCommand(), new BarCommand());
     addCommands(
+
+      // Up, out, and shoot
       new IntakeTimeCommand(arm, -.95, 0.25),
       new ArmUpWristSetPositionCommand(arm, wrist, 3.5, 38),
       new ArmLengthCommand(arm, -.95, 2),
       new IntakeTimeCommand(arm, 0.8,.5),
+
+      // Down, in, fold 
       new ArmLengthCommand(arm, 0.95, 2.25),
       new ArmDownWristSetPositionCommand(arm, wrist, 1.5, 0),
 
+      // Ramp Climb
       new AutoRampClimb(drive, arm, wrist)
       
     );
