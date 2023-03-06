@@ -21,6 +21,9 @@ public class RampClimbBangBang extends CommandBase {
   private int arraySize = 25;
   private double deltaXValues [] = new double[arraySize];
 
+  private double rateOfChange = 0;
+  private double oldDeltaX = 0;
+
   private double oldDeltaY = 0;
   /** Creates a new RampClimbBangBang. */
   public RampClimbBangBang(DriveSubsystem drive) {
@@ -42,28 +45,33 @@ public class RampClimbBangBang extends CommandBase {
     double deltaX = Robot.getRioAccell().getX();
     deltaXValues[count] = deltaX;
 
+    // Computes Average deltaX - acceleration in X direction
     totalDeltaX = 0;
     for(int i = 0; i < deltaXValues.length; i++){
       totalDeltaX += deltaXValues[i];
     }
-
-
-    avgDeltaX = totalDeltaX/deltaXValues.length;
     count++;
     if(count > deltaXValues.length-1){
       count = 0;
     }
+    avgDeltaX = totalDeltaX/deltaXValues.length;
+
+    // Compute rate of change
+    rateOfChange = avgDeltaX - oldDeltaX;
+
+    // Update oldDeltaX
+    oldDeltaX = avgDeltaX;
 
     frameCount++;
 // add time delay for robot while it is tipping because the robot is nto getting contct with the ramp
     if(frameCount > 50){
-      m_drive.drive(-0.1, 0, 0, false);
+      m_drive.drive(-0.12, 0, 0, false);
     }
     if(frameCount > 100){
-      m_drive.drive(-0.1, 0, 0, false);
+      m_drive.drive(-0.12, 0, 0, false);
     }
     if(frameCount > 250){
-      m_drive.drive(-0.1, 0, 0, false);
+      m_drive.drive(-0.12, 0, 0, false);
     }
   }
 
@@ -79,10 +87,11 @@ public class RampClimbBangBang extends CommandBase {
   @Override
   public boolean isFinished() {
 
-    System.out.println("DeltaX: " + avgDeltaX);
+    System.out.println("DeltaX: " + avgDeltaX + ", " + rateOfChange + ", " + frameCount);
 
-    if (avgDeltaX > -0.23) {
-      if (frameCount > 100) {
+    if (avgDeltaX > -0.2) {
+    //if (rateOfChange > .025) {
+      if (frameCount > 120) {
         return true;
       } else {
         return false;
