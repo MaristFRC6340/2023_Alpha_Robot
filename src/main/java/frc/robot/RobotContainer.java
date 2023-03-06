@@ -15,6 +15,7 @@ import edu.wpi.first.math.trajectory.TrajectoryConfig;
 import edu.wpi.first.math.trajectory.TrajectoryGenerator;
 import edu.wpi.first.wpilibj.XboxController;
 import edu.wpi.first.wpilibj.PS4Controller.Button;
+import frc.robot.Autos.AutoBlueCubeRamp;
 import frc.robot.Autos.AutoBlueHighCone;
 import frc.robot.Autos.AutoBlueOne;
 import frc.robot.Autos.AutoBlueTwo;
@@ -188,4 +189,7 @@ public class RobotContainer {
     return new AutoRampClimb(m_robotDrive, m_armSubsystem, m_wristSubsystem);
   }
 
+  public Command getRampCubeCommand(){
+    return new AutoBlueCubeRamp(m_robotDrive, m_armSubsystem, m_wristSubsystem);
+  }
 }

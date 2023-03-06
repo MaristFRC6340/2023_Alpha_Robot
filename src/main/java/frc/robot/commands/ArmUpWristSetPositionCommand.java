@@ -34,6 +34,7 @@ public class ArmUpWristSetPositionCommand extends CommandBase {
     duration = 1;
     newRotation = rotation;
     addRequirements(wrist);
+    addRequirements(arm);
   }
 
   // Called when the command is initially scheduled.
@@ -47,7 +48,11 @@ public class ArmUpWristSetPositionCommand extends CommandBase {
   @Override
   public void execute() {
     arm.armUp();
-    wrist.setWristReference(newRotation);
+    long checkTime = System.currentTimeMillis();
+    if (checkTime > startTime + 500) {
+        wrist.setWristReference(newRotation);
+    }
+    
   }
 
   // Called once the command ends or is interrupted.
