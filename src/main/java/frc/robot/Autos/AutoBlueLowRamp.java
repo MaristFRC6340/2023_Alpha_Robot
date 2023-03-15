@@ -5,8 +5,9 @@
 package frc.robot.Autos;
 
 import edu.wpi.first.wpilibj2.command.SequentialCommandGroup;
-import frc.robot.commands.DriveEncoderCommand;
-import frc.robot.commands.RampClimbBangBang;
+import edu.wpi.first.wpilibj2.command.WaitCommand;
+import frc.robot.commands.IntakeTimeCommand;
+import frc.robot.commands.WristSetPositionCommand;
 import frc.robot.subsystems.ArmSubsystem;
 import frc.robot.subsystems.DriveSubsystem;
 import frc.robot.subsystems.WristSubsystem;
@@ -14,21 +15,20 @@ import frc.robot.subsystems.WristSubsystem;
 // NOTE:  Consider using this command inline, rather than writing a subclass.  For more
 // information, see:
 // https://docs.wpilib.org/en/stable/docs/software/commandbased/convenience-features.html
-public class AutoRampClimb extends SequentialCommandGroup {
-  /** Creates a new AutoRampClimb. */
-  public AutoRampClimb(DriveSubsystem drive, ArmSubsystem arm, WristSubsystem wrist) {
-
+public class AutoBlueLowRamp extends SequentialCommandGroup {
+  /** Creates a new AutoBlueLowRamp. */
+  public AutoBlueLowRamp(ArmSubsystem arm, WristSubsystem wrist, DriveSubsystem drive) {
     // Add your commands in the addCommands() call, e.g.
     // addCommands(new FooCommand(), new BarCommand());
     addCommands(
-      //new DriveEncoderCommand(drive,-.18, 0, 0, 2),
-      new DriveTimeTestCommand(drive, -0.2, 0, 0, 2.5),
+      new WristSetPositionCommand(wrist, 20),
+      new IntakeTimeCommand(arm, -0.4, 2),
+      new WaitCommand(1),
+      new WristSetPositionCommand(wrist, 0),
 
-      // Ramp Climber: Substitute with RampClimbNavX when finished
-      new RampClimbBangBang(drive),
+      new AutoRampClimb(drive, arm, wrist)
       
-      //new DriveEncoderCommand(drive, 0.1, 0, 0, 0.05)
-      new DriveTimeTestCommand(drive, 0.15, 0, 0, .2)
+
     );
   }
 }

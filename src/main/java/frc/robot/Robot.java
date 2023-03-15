@@ -36,8 +36,8 @@ public class Robot extends TimedRobot {
 
   //Smart Dashboard and Auto Chooser
   private static final String kDefaultOption = "Default";
-  private static final String kBlue1 = "Blue1";
-  private static final String kBlue2 = "Blue2";
+  private static final String kBlue1 = "Blue1 Cube";
+  private static final String kBlue2 = "Blue2 Cone";
   private static final String kBlue3 = "Blue3";
   private static final String kRed1 = "Red1";
   private static final String kRed2 = "Red2";
@@ -49,7 +49,9 @@ public class Robot extends TimedRobot {
   private static final String kShootCubeHighCommand = "Shoot Cube High Sequence";
   private static final String kBlueHighCone = "Auto Blue High Cone";
   private static final String kRampClimb = "Ramp Climb";
-  private static final String kBlueHighCube = "Auto Blue High Cube Ramp";
+  private static final String kBlueHighCubeRamp = "Auto Blue High Cube Ramp";
+  private static final String kBlueHighConeRamp = "Auto Blue High Cone Ramp";
+  private static final String kBlueLowCubeRamp = "Auto Blue Low Cube Ramp";
 
   private String m_autoSelected;
   private final SendableChooser<String> m_chooser = new SendableChooser();
@@ -69,8 +71,8 @@ public class Robot extends TimedRobot {
     //Initialize Chooser
 
     m_chooser.setDefaultOption("Default Auto", kDefaultOption);
-    m_chooser.addOption("Blue1", kBlue1);
-    m_chooser.addOption("Blue2", kBlue2);
+    m_chooser.addOption("Blue1 Cube", kBlue1);
+    m_chooser.addOption("Blue2 Cone", kBlue2);
     m_chooser.addOption("Blue3", kBlue3);
     m_chooser.addOption("Red1", kRed1);
     m_chooser.addOption("Red2", kRed2);
@@ -82,12 +84,14 @@ public class Robot extends TimedRobot {
     m_chooser.addOption("Shoot Cube High Sequence", kShootCubeHighCommand);
     m_chooser.addOption("Auto Blue High Cone", kBlueHighCone);
     m_chooser.addOption("RampClimb", kRampClimb );
-    m_chooser.addOption("Auto Blue High Cube Ramp", kBlueHighCube);
+    m_chooser.addOption("Auto Blue High Cube Ramp", kBlueHighCubeRamp);
+    m_chooser.addOption("Auto Blue High Cone Ramp", kBlueHighConeRamp);
+    m_chooser.addOption(kBlueLowCubeRamp, kBlueLowCubeRamp);
 
 
-    String[] choices = {kBlue1, kBlue2, kBlue3, kRed1, kRed2, kRed3, kExampleAuto, kWristRotateTestCommand, 
-                        kPIDWristTestCommand, kDriveTimeTestCommand, kShootCubeHighCommand, 
-                        kBlueHighCone,kRampClimb, kBlueHighCube};
+    String[] choices = {kBlue1, kBlue2, 
+                        kBlueHighCone, kRampClimb, kBlueHighCubeRamp, kBlueHighConeRamp, kBlueLowCubeRamp};
+
     SmartDashboard.putStringArray("Auto List", choices);
 
 
@@ -132,33 +136,21 @@ public class Robot extends TimedRobot {
         System.out.println("Blue2");
         m_autonomousCommand = m_robotContainer.getAutoBlueTwo();
         break;
-      case kExampleAuto:
-        System.out.println("Example Auto");
-        m_autonomousCommand = m_robotContainer.getAutonomousCommand();
-        break;
-      case kWristRotateTestCommand:
-        System.out.println("Wrist Auto Rotate Command");
-        //m_autonomousCommand = m_robotContainer.getWristRotateTestCommand();
-        break;
-      case kPIDWristTestCommand:
-        System.out.println("Wrist PID Command Test");
-        m_autonomousCommand = m_robotContainer.getWristPIDCommandTest();
-        break;
-      case kDriveTimeTestCommand:
-        System.out.println("Drive Time Test Command");
-        m_autonomousCommand = m_robotContainer.getDriveTimeTestCommand();
-        break;
-      case kShootCubeHighCommand:
-        m_autonomousCommand = m_robotContainer.getCubeShootSequence();
-        break;
       case kBlueHighCone:
         m_autonomousCommand = m_robotContainer.getHighConeCommand();
         break;
       case kRampClimb:
         m_autonomousCommand = m_robotContainer.getRampCommand();
         break;
-      case kBlueHighCube:
+      case kBlueHighCubeRamp:
         m_autonomousCommand = m_robotContainer.getRampCubeCommand();
+        break;
+      case kBlueHighConeRamp:
+        m_autonomousCommand = m_robotContainer.getHighConeRampCommand();
+        break;
+      case kBlueLowCubeRamp:
+        m_autonomousCommand = m_robotContainer.getLowCubeRampCommand();
+        break;
       case kDefaultOption:
         System.out.println("Default");
         default:

@@ -8,7 +8,7 @@ import edu.wpi.first.wpilibj2.command.CommandBase;
 import frc.robot.Robot;
 import frc.robot.subsystems.DriveSubsystem;
 
-public class RampClimbBangBang extends CommandBase {
+public class ForwardRampClimbBangBang extends CommandBase {
 
 
   private DriveSubsystem  m_drive;
@@ -27,7 +27,7 @@ public class RampClimbBangBang extends CommandBase {
   private double oldDeltaY = 0;
 
   /** Creates a new RampClimbBangBang. */
-  public RampClimbBangBang(DriveSubsystem drive) {
+  public ForwardRampClimbBangBang(DriveSubsystem drive) {
 
     m_drive = drive;
 
@@ -66,13 +66,7 @@ public class RampClimbBangBang extends CommandBase {
     frameCount++;
 // add time delay for robot while it is tipping because the robot is nto getting contct with the ramp
     if(frameCount > 50){
-      m_drive.drive(-0.15, 0, 0, false);
-    }
-    if(frameCount > 90){
-      m_drive.drive(-0.075, 0, 0, false);
-    }
-    if(frameCount > 200){
-      m_drive.drive(-0.065, 0, 0, false);
+      m_drive.drive(0.1, 0, 0, false);
     }
   }
 
@@ -90,9 +84,9 @@ public class RampClimbBangBang extends CommandBase {
 
     System.out.println("DeltaX: " + avgDeltaX + ", " + rateOfChange + ", " + frameCount);
 
-    if (avgDeltaX > -0.16) {
+    if (avgDeltaX < 0.16) {
     //if (rateOfChange > .025) {
-      if (frameCount > 130) {
+      if (frameCount > 100) {
         return true;
       } else {
         return false;

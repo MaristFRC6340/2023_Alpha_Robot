@@ -4,7 +4,6 @@
 
 package frc.robot.Autos;
 
-import edu.wpi.first.wpilibj2.command.Commands;
 import edu.wpi.first.wpilibj2.command.SequentialCommandGroup;
 import edu.wpi.first.wpilibj2.command.WaitCommand;
 import frc.robot.commands.ArmDownCommand;
@@ -22,26 +21,26 @@ import frc.robot.subsystems.WristSubsystem;
 // NOTE:  Consider using this command inline, rather than writing a subclass.  For more
 // information, see:
 // https://docs.wpilib.org/en/stable/docs/software/commandbased/convenience-features.html
-public class AutoBlueHighCone extends SequentialCommandGroup {
+public class AutoBlueHighConeRamp extends SequentialCommandGroup {
   /** Creates a new AutoBlueHighCone. */
-  public AutoBlueHighCone(DriveSubsystem drive, ArmSubsystem arm, WristSubsystem wrist) {
+  public AutoBlueHighConeRamp(DriveSubsystem drive, ArmSubsystem arm, WristSubsystem wrist) {
     // Add your commands in the addCommands() call, e.g.
     // addCommands(new FooCommand(), new BarCommand());
     addCommands(
 
       // Up, out, and shoot
-      new ArmUpWristSetPositionCommand(arm, wrist, 3.25, 40),
+      new IntakeTimeCommand(arm, -.95, 0.25),
+      new ArmUpWristSetPositionCommand(arm, wrist, 3.5, 40),
       new ArmLengthCommand(arm, -.95, 2),
       new IntakeTimeCommand(arm, 0.8,.5),
 
-      // Down, in, fold
-      new ArmLengthCommand(arm, 0.95, 2.25), 
+      // Down, in, fold 
+      new ArmLengthCommand(arm, 0.95, 2.25),
+      new ArmDownWristSetPositionCommand(arm, wrist, 1.5, 0),
 
-      // Lower Arm and Back Up
-      Commands.parallel(
-        new ArmDownWristSetPositionCommand(arm, wrist, 1.5, 0),
-        new DriveTimeTestCommand(drive, -.25, 0, 0, 4))
-
+      // Ramp Climb
+      new AutoRampClimb(drive, arm, wrist)
+      //new ForwardRampClimbBangBang(drive)
       
     );
   }

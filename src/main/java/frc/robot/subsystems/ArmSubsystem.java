@@ -46,6 +46,9 @@ public class ArmSubsystem extends SubsystemBase {
     intakeSolLeft = new DoubleSolenoid(2, PneumaticsModuleType.CTREPCM, 3, 4);
     intakeSolRight = new DoubleSolenoid(2, PneumaticsModuleType.CTREPCM, 5, 6);
 
+    // Set armSol to off to help keep pressurized: michaudc 09 mar 23
+    armSol.set(Value.kOff);
+
     // Added 20 Feb 23 to control compressor state michaudc
     compressor = new Compressor(2, PneumaticsModuleType.CTREPCM);
     compressor.enableDigital();

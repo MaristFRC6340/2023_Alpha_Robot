@@ -4,6 +4,7 @@
 
 package frc.robot.Autos;
 
+import edu.wpi.first.wpilibj2.command.Commands;
 import edu.wpi.first.wpilibj2.command.SequentialCommandGroup;
 import edu.wpi.first.wpilibj2.command.WaitCommand;
 import frc.robot.commands.IntakeTimeCommand;
@@ -23,9 +24,15 @@ public class AutoBlueOne extends SequentialCommandGroup {
 
     // Test Sequence of Placing Object then moving backwards
     addCommands(
-    new WristSetPositionCommand(wrist, 15),
+    new WristSetPositionCommand(wrist, 20),
     new IntakeTimeCommand(arm, -0.4, 2),
     new WaitCommand(1),
-    new DriveTimeTestCommand(drive, -.15, 0, 0, 6));
+
+    Commands.parallel(
+      new WristSetPositionCommand(wrist, 0),
+      new DriveTimeTestCommand(drive, -.15, 0, 0, 6)
+    )
+
+    );
   }
 }

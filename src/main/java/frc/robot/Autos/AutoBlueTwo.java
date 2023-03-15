@@ -4,6 +4,7 @@
 
 package frc.robot.Autos;
 
+import edu.wpi.first.wpilibj2.command.Commands;
 import edu.wpi.first.wpilibj2.command.SequentialCommandGroup;
 import edu.wpi.first.wpilibj2.command.WaitCommand;
 import frc.robot.commands.ArmDownCommand;
@@ -29,12 +30,14 @@ public class AutoBlueTwo extends SequentialCommandGroup {
       new WristSetPositionCommand(wrist, 50),
       new WaitCommand(2),
       new IntakeTimeCommand(arm, 0.4, 2),
-      new WaitCommand(1),
-      new WristSetPositionCommand(wrist, 10),
-      new WaitCommand(1),
-      new ArmDownCommand(arm),
-      new WaitCommand(1),
-      new DriveTimeTestCommand(drive, -.15, 0, 0, 6)
+
+      new WristSetPositionCommand(wrist, 5),
+      
+      Commands.parallel(
+        new ArmDownCommand(arm),
+        new DriveTimeTestCommand(drive, -.15, 0, 0, 6)
+      )
+
     );
   }
 }
