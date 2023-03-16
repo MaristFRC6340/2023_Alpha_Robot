@@ -93,8 +93,6 @@ public class Robot extends TimedRobot {
                         kBlueHighCone, kRampClimb, kBlueHighCubeRamp, kBlueHighConeRamp, kBlueLowCubeRamp};
 
     SmartDashboard.putStringArray("Auto List", choices);
-
-
   }
 
   /**

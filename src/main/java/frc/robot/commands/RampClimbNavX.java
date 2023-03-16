@@ -10,7 +10,9 @@ import frc.robot.subsystems.DriveSubsystem;
 public class RampClimbNavX extends CommandBase {
 
   private DriveSubsystem  m_drive;
-
+  private int frameCount = 0;
+  private double motorPower;
+  private int levelCount = 0;
   // Need to get instance or connection to NavX
 
   /** Creates a new RampClimbNavX. */
@@ -30,7 +32,35 @@ public class RampClimbNavX extends CommandBase {
   @Override
   public void execute() {
     //TODO Implement Ramp Balance
-    
+    double theta = -m_drive.getRoll();
+    frameCount++;
+    theta+=0.125;
+    if(Math.abs(theta)<3){
+      levelCount++;
+    } else {
+      levelCount=0;
+    }
+
+    if(theta>0){
+      motorPower = Math.sin(Math.toRadians(theta-90))+1;
+    } else {
+      motorPower = -Math.sin(Math.toRadians(theta-90))-1;
+    }
+    motorPower *= 3.75;
+
+    double cap = 0.15;
+    if(motorPower>cap){
+      motorPower=cap;
+    }
+    if(motorPower<-cap){
+      motorPower=-cap;
+    }
+
+    if(frameCount>50){
+      m_drive.drive(motorPower, 0, 0, false);
+    }
+
+
   }
 
   // Called once the command ends or is interrupted.
@@ -42,10 +72,8 @@ public class RampClimbNavX extends CommandBase {
   // Returns true when the command should end.
   @Override
   public boolean isFinished() {
-
+    return levelCount>100;
     // Think about using some time of timout and measure if 
     // near zero for long period
-
-    return false;
   }
 }

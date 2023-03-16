@@ -6,7 +6,7 @@ package frc.robot.Autos;
 
 import edu.wpi.first.wpilibj2.command.SequentialCommandGroup;
 import frc.robot.commands.DriveEncoderCommand;
-import frc.robot.commands.RampClimbBangBang;
+import frc.robot.commands.RampClimbNavX;
 import frc.robot.subsystems.ArmSubsystem;
 import frc.robot.subsystems.DriveSubsystem;
 import frc.robot.subsystems.WristSubsystem;
@@ -25,10 +25,8 @@ public class AutoRampClimb extends SequentialCommandGroup {
       new DriveTimeTestCommand(drive, -0.2, 0, 0, 2.5),
 
       // Ramp Climber: Substitute with RampClimbNavX when finished
-      new RampClimbBangBang(drive),
+      new RampClimbNavX(drive)
       
-      //new DriveEncoderCommand(drive, 0.1, 0, 0, 0.05)
-      new DriveTimeTestCommand(drive, 0.15, 0, 0, .2)
     );
   }
 }

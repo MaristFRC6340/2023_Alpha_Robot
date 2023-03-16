@@ -4,6 +4,8 @@
 
 package frc.robot.subsystems;
 
+import com.kauailabs.navx.frc.AHRS;
+import edu.wpi.first.wpilibj.SPI;
 import edu.wpi.first.math.geometry.Pose2d;
 import edu.wpi.first.math.geometry.Rotation2d;
 import edu.wpi.first.math.kinematics.ChassisSpeeds;
@@ -11,7 +13,6 @@ import edu.wpi.first.math.kinematics.SwerveDriveKinematics;
 import edu.wpi.first.math.kinematics.SwerveDriveOdometry;
 import edu.wpi.first.math.kinematics.SwerveModulePosition;
 import edu.wpi.first.math.kinematics.SwerveModuleState;
-import edu.wpi.first.wpilibj.ADXRS450_Gyro;
 import edu.wpi.first.wpilibj.smartdashboard.SmartDashboard;
 import frc.robot.Constants.DriveConstants;
 import edu.wpi.first.wpilibj2.command.SubsystemBase;
@@ -39,7 +40,7 @@ public class DriveSubsystem extends SubsystemBase {
       DriveConstants.kBackRightChassisAngularOffset);
 
   // The gyro sensor
-  private final ADXRS450_Gyro m_gyro = new ADXRS450_Gyro();
+  private final AHRS m_gyro = new AHRS(SPI.Port.kMXP);
   double rotOffset = 0;
 
   // Odometry class for tracking robot pose
@@ -76,6 +77,8 @@ public class DriveSubsystem extends SubsystemBase {
         SmartDashboard.putNumber("Module 3 azimuth", m_rearRight.getAngle());
         SmartDashboard.putNumber("Module 0 distance", m_frontLeft.getPosition().distanceMeters);
         SmartDashboard.putNumber("Gyro", m_gyro.getAngle());
+        SmartDashboard.putNumber("Roll", m_gyro.getRoll());
+        SmartDashboard.putNumber("Pitch", m_gyro.getPitch());
   }
 
   /**
@@ -86,7 +89,6 @@ public class DriveSubsystem extends SubsystemBase {
   public Pose2d getPose() {
     return m_odometry.getPoseMeters();
   }
-
   /**
    * Resets the odometry to the specified pose.
    *
@@ -192,6 +194,10 @@ public class DriveSubsystem extends SubsystemBase {
    */
   public double getLeftModuleDistance() {
     return m_frontLeft.getPosition().distanceMeters;
+  }
+
+  public double getRoll(){
+    return m_gyro.getRoll();
   }
 
 }
