@@ -31,11 +31,11 @@ public class AutoBlueHighCone extends SequentialCommandGroup {
 
       // Up, out, and shoot
       new ArmUpWristSetPositionCommand(arm, wrist, 3.25, 40),
-      new ArmLengthCommand(arm, -.95, 2),
+      new ArmLengthCommand(arm, -.95, 1.75),
       new IntakeTimeCommand(arm, 0.8,.5),
 
       // Down, in, fold
-      new ArmLengthCommand(arm, 0.95, 2.25), 
+      new ArmLengthCommand(arm, 0.95, 1.65), 
 
       // Lower Arm and Back Up
       Commands.parallel(

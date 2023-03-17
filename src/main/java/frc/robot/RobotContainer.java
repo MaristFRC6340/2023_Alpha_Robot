@@ -111,17 +111,16 @@ public class RobotContainer {
     // An example trajectory to follow. All units in meters.
     Trajectory exampleTrajectory = TrajectoryGenerator.generateTrajectory(
         // Start at the origin facing the +X direction
-        new Pose2d(0, 0, new Rotation2d(180)),
+        new Pose2d(0, 0, new Rotation2d(0)),
         // Pass through these two interior waypoints, making an 's' curve path
-        List.of(new Translation2d(.1, 0),
-                new Translation2d(1, 0.5), 
-                new Translation2d(1.5, .5),
-                new Translation2d(2, 1),
-                new Translation2d(2.5, 1.25)),
+        List.of(new Translation2d(1, 0),
+                new Translation2d(4, 0)
+               //new Translation2d(3, 0.5)
+               ),
 
         //List.of(new Pose2d(1, 0, new Rotation2d(180))),
         // End 3 meters straight ahead of where we started, facing forward
-        new Pose2d(3, 1, new Rotation2d(180)),
+        new Pose2d(6, 0, new Rotation2d(0)),
         config);
 
     var thetaController = new ProfiledPIDController(

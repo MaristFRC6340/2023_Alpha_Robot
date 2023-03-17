@@ -53,7 +53,7 @@ public class ArmSubsystem extends SubsystemBase {
     compressor = new Compressor(2, PneumaticsModuleType.CTREPCM);
     compressor.enableDigital();
     
-    armLengthMotor = new CANSparkMax(6, MotorType.kBrushed);
+    armLengthMotor = new CANSparkMax(6, MotorType.kBrushless);
     //armAngleMotor = new CANSparkMax(5, MotorType.kBrushless);
     //wristMotor = new CANSparkMax(7, MotorType.kBrushless); // removed 17 Feb 23 tonioloa
     intakeLeftMotor = new Spark(5);
