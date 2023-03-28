@@ -16,6 +16,7 @@ import edu.wpi.first.math.trajectory.TrajectoryGenerator;
 import edu.wpi.first.wpilibj.XboxController;
 import edu.wpi.first.wpilibj.PS4Controller.Button;
 import frc.robot.Autos.AutoBlueCubeRamp;
+import frc.robot.Autos.AutoBlueCubeRampExit;
 import frc.robot.Autos.AutoBlueHighCone;
 import frc.robot.Autos.AutoBlueHighConeRamp;
 import frc.robot.Autos.AutoBlueLowRamp;
@@ -25,6 +26,7 @@ import frc.robot.Autos.AutoRampClimb;
 import frc.robot.Autos.DriveTimeTestCommand;
 import frc.robot.Autos.ExampleAuto;
 import frc.robot.Autos.ShootCubeHighSequence;
+import frc.robot.Autos.AutoRampClimbExit;
 import frc.robot.Constants.AutoConstants;
 import frc.robot.Constants.DriveConstants;
 import frc.robot.Constants.OIConstants;
@@ -193,6 +195,10 @@ public class RobotContainer {
     return new AutoBlueCubeRamp(m_robotDrive, m_armSubsystem, m_wristSubsystem);
   }
 
+  public Command getRampCubeExitCommand(){
+    return new AutoBlueCubeRampExit(m_robotDrive, m_armSubsystem, m_wristSubsystem);
+  }
+
   public Command getHighConeRampCommand() {
     return new AutoBlueHighConeRamp(m_robotDrive, m_armSubsystem, m_wristSubsystem);
   }
@@ -200,4 +206,9 @@ public class RobotContainer {
   public Command getLowCubeRampCommand() {
     return new AutoBlueLowRamp(m_armSubsystem, m_wristSubsystem, m_robotDrive);
   }
+  
+  public Command getRampClimbExitCommand(){
+    return new AutoRampClimbExit(m_robotDrive, m_armSubsystem, m_wristSubsystem);
+  }
+
 }

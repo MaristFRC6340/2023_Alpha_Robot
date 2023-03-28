@@ -26,7 +26,7 @@ public class DriveCommand extends CommandBase {
   private NetworkTableEntry ledMode;
 
   // PID Control for Limelight Turn
-  private double kP = 0.03;
+  private double kP = 0.025;
 
   // For PID Control
   double turnPower = 0;
@@ -62,9 +62,9 @@ public class DriveCommand extends CommandBase {
   public void execute() {
     // Updated Drive Command
 
-    leftX = Robot.getDriveControlJoystick().getRawAxis(0);
+    leftX = Robot.getDriveControlJoystick().getRawAxis(0) - turnPower;
     leftY = Robot.getDriveControlJoystick().getRawAxis(1);
-    rightX = Robot.getDriveControlJoystick().getRawAxis(4) + turnPower; // Adjust for PID Limelight
+    rightX = Robot.getDriveControlJoystick().getRawAxis(4); // Adjust for PID Limelight
 
 
     if (Robot.getDriveControlJoystick().getRawAxis(2) > 0.5) {

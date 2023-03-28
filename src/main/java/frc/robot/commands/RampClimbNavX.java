@@ -12,6 +12,7 @@ public class RampClimbNavX extends CommandBase {
   private DriveSubsystem  m_drive;
   private int frameCount = 0;
   private double motorPower;
+  private double powerMultiplier = 2.75; //can be raised for real ramp if wanted
   private int levelCount = 0;
   // Need to get instance or connection to NavX
 
@@ -43,10 +44,12 @@ public class RampClimbNavX extends CommandBase {
 
     if(theta>0){
       motorPower = Math.sin(Math.toRadians(theta-90))+1;
+      motorPower *= powerMultiplier;
     } else {
       motorPower = -Math.sin(Math.toRadians(theta-90))-1;
+      motorPower *= powerMultiplier;
     }
-    motorPower *= 3.75;
+    
 
     double cap = 0.15;
     if(motorPower>cap){
@@ -56,9 +59,7 @@ public class RampClimbNavX extends CommandBase {
       motorPower=-cap;
     }
 
-    if(frameCount>50){
       m_drive.drive(motorPower, 0, 0, false);
-    }
 
 
   }
@@ -66,6 +67,7 @@ public class RampClimbNavX extends CommandBase {
   // Called once the command ends or is interrupted.
   @Override
   public void end(boolean interrupted) {
+    m_drive.drive(0, 0, 0, false);
     m_drive.setX();
   }
 

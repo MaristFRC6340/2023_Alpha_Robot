@@ -57,7 +57,7 @@ private double rotations = 0;
 
     // Button: B: Home Positions
     if (Robot.getArmControlJoystick().getRawButton(2)) {
-      rotations = 0;
+      rotations = 6; //OG 0, forward a bit to prevent cone loss
     } 
 
     // Button: X: Shelf Pickup Position

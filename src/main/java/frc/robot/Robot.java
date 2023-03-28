@@ -50,6 +50,7 @@ public class Robot extends TimedRobot {
   private static final String kBlueHighCone = "Auto Blue High Cone";
   private static final String kRampClimb = "Ramp Climb";
   private static final String kBlueHighCubeRamp = "Auto Blue High Cube Ramp";
+  private static final String kBlueHighCubeRampExit = "Auto Blue High Cube Ramp Exit";
   private static final String kBlueHighConeRamp = "Auto Blue High Cone Ramp";
   private static final String kBlueLowCubeRamp = "Auto Blue Low Cube Ramp";
   private static final String kExampleTest = "Example Auto Test";
@@ -86,13 +87,14 @@ public class Robot extends TimedRobot {
     m_chooser.addOption("Auto Blue High Cone", kBlueHighCone);
     m_chooser.addOption("RampClimb", kRampClimb );
     m_chooser.addOption("Auto Blue High Cube Ramp", kBlueHighCubeRamp);
+    m_chooser.addOption("Auto Blue High Cube Ramp Exit", kBlueHighCubeRampExit);
     m_chooser.addOption("Auto Blue High Cone Ramp", kBlueHighConeRamp);
     m_chooser.addOption(kBlueLowCubeRamp, kBlueLowCubeRamp);
     m_chooser.addOption("Example Auto Command", kExampleTest);
 
 
     String[] choices = {kBlue1, kBlue2, 
-                        kBlueHighCone, kRampClimb, kBlueHighCubeRamp, 
+                        kBlueHighCone, kRampClimb, kBlueHighCubeRamp,
                         kBlueHighConeRamp, kBlueLowCubeRamp, kExampleTest};
 
     SmartDashboard.putStringArray("Auto List", choices);
@@ -141,7 +143,7 @@ public class Robot extends TimedRobot {
         m_autonomousCommand = m_robotContainer.getHighConeCommand();
         break;
       case kRampClimb:
-        m_autonomousCommand = m_robotContainer.getRampCommand();
+        m_autonomousCommand = m_robotContainer.getRampClimbExitCommand();
         break;
       case kBlueHighCubeRamp:
         m_autonomousCommand = m_robotContainer.getRampCubeCommand();
@@ -151,6 +153,9 @@ public class Robot extends TimedRobot {
         break;
       case kBlueLowCubeRamp:
         m_autonomousCommand = m_robotContainer.getLowCubeRampCommand();
+        break;
+      case kBlueHighCubeRampExit:
+        m_autonomousCommand = m_robotContainer.getRampCubeExitCommand();
         break;
       case kExampleTest:
         m_autonomousCommand = m_robotContainer.getAutonomousCommand();

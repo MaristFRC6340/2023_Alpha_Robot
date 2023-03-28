@@ -6,13 +6,8 @@ package frc.robot.Autos;
 
 import edu.wpi.first.wpilibj2.command.SequentialCommandGroup;
 import edu.wpi.first.wpilibj2.command.WaitCommand;
-import frc.robot.commands.ArmDownCommand;
-import frc.robot.commands.ArmDownWristSetPositionCommand;
-import frc.robot.commands.ArmLengthCommand;
-import frc.robot.commands.ArmUpCommand;
-import frc.robot.commands.ArmUpWristSetPositionCommand;
-import frc.robot.commands.IntakeTimeCommand;
-import frc.robot.commands.WristSetPositionCommand;
+import frc.robot.commands.DriveEncoderCommand;
+import frc.robot.commands.RampClimbNavX;
 import frc.robot.subsystems.ArmSubsystem;
 import frc.robot.subsystems.DriveSubsystem;
 import frc.robot.subsystems.WristSubsystem;
@@ -20,20 +15,22 @@ import frc.robot.subsystems.WristSubsystem;
 // NOTE:  Consider using this command inline, rather than writing a subclass.  For more
 // information, see:
 // https://docs.wpilib.org/en/stable/docs/software/commandbased/convenience-features.html
-public class AutoBlueCubeRamp extends SequentialCommandGroup {
-  /** Creates a new AutoBlueHighCone. */
-  public AutoBlueCubeRamp(DriveSubsystem drive, ArmSubsystem arm, WristSubsystem wrist) {
+public class AutoRampClimbExit extends SequentialCommandGroup {
+  /** Creates a new AutoRampClimb. */
+  public AutoRampClimbExit(DriveSubsystem drive, ArmSubsystem arm, WristSubsystem wrist) {
+
     // Add your commands in the addCommands() call, e.g.
     // addCommands(new FooCommand(), new BarCommand());
     addCommands(
-      
-      // Up and shoot
-      new ArmUpWristSetPositionCommand(arm, wrist, 2.6, 27),
-      new IntakeTimeCommand(arm, -0.8,.3),
-      
-      // Down and Back
-      new ArmDownWristSetPositionCommand(arm, wrist, 1.25, 0),
-      new AutoRampClimb(drive, arm, wrist)
+      //new DriveEncoderCommand(drive,-.18, 0, 0, 2),
+      new DriveTimeTestCommand(drive, -0.275, 0, 0, 3.75),
+      new WaitCommand(.25),
+      new DriveTimeTestCommand(drive, 0.2, 0, 0, 3.4),
+      new WaitCommand(.25),
+
+
+      // Ramp Climber: Substitute with RampClimbNavX when finished
+      new RampClimbNavX(drive)
       
     );
   }
