@@ -56,6 +56,7 @@ public class Robot extends TimedRobot {
   private static final String kExampleTest = "Example Auto Test";
   private static final String kBlueRampExit = "Auto Blue Ramp Exit";
   private static final String kTurnTest = "Auto Turn Test";
+  private static final String kBlueHighConePickup = "Auto Blue High Cone Pickup";
 
   private String m_autoSelected;
   private final SendableChooser<String> m_chooser = new SendableChooser();
@@ -95,13 +96,14 @@ public class Robot extends TimedRobot {
     m_chooser.addOption("Example Auto Command", kExampleTest);
     m_chooser.addOption("Auto Blue Ramp Exit", kBlueRampExit);
     m_chooser.addOption("Auto Turn Test", kTurnTest);
+    m_chooser.addOption("Auto Blue High Cone Pickup", kBlueHighConePickup);
   
 
 
     String[] choices = {kBlue1, kBlue2, 
                         kBlueHighCone, kRampClimb, kBlueHighCubeRamp,
                         kBlueHighConeRamp, kBlueLowCubeRamp, kExampleTest, kBlueHighCubeRampExit, kBlueRampExit,
-                        kTurnTest};
+                        kTurnTest, kBlueHighConePickup};
 
     SmartDashboard.putStringArray("Auto List", choices);
   }
@@ -170,6 +172,8 @@ public class Robot extends TimedRobot {
         m_autonomousCommand = m_robotContainer.getRampClimbExitCommand();
       case kTurnTest:
         m_autonomousCommand = m_robotContainer.getTurnTestCommand();
+      case kBlueHighConePickup:
+        m_autonomousCommand = m_robotContainer.getHighConePickupCommand();
       case kDefaultOption:
         System.out.println("Default");
         default:

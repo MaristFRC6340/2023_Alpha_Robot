@@ -12,12 +12,14 @@ public class NavXTurnCommand extends CommandBase {
     private double power;
     private double target;
     private double error;
-    private double kP = 0.001;
+    private double kP = 0.025;
+    private double theta;
 
     public NavXTurnCommand(DriveSubsystem drive, double power, double target){
         m_robotDrive = drive;
         this.target = target;
         this.power = power;
+        addRequirements(drive);
     }
 
     @Override
@@ -29,21 +31,23 @@ public class NavXTurnCommand extends CommandBase {
 
     @Override
     public void execute(){
-        double theta = m_robotDrive.getHeading();
+        theta = m_robotDrive.getHeading();
         error = target - theta;
         double turnAdjust = error*kP;
-        System.out.println(turnAdjust);
+        
         if(turnAdjust>power){
             turnAdjust = power;
         }
-        if(turnAdjust<power){
+        if(turnAdjust<-power){
             turnAdjust = -power;
         }
-        m_robotDrive.drive(0, 0, turnAdjust, false);
+        System.out.println("error: " + error + "   turnAdjust: " + turnAdjust);
+        m_robotDrive.drive(0, 0, -turnAdjust, false);
 
     }
 
     public boolean isFinished(){
+
         return Math.abs(error)<2;
     }
     public void end(boolean interrupted){

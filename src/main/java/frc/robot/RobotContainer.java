@@ -18,6 +18,7 @@ import edu.wpi.first.wpilibj.PS4Controller.Button;
 import frc.robot.Autos.AutoBlueCubeRamp;
 import frc.robot.Autos.AutoBlueCubeRampExit;
 import frc.robot.Autos.AutoBlueHighCone;
+import frc.robot.Autos.AutoBlueHighConePickup;
 import frc.robot.Autos.AutoBlueHighConeRamp;
 import frc.robot.Autos.AutoBlueLowRamp;
 import frc.robot.Autos.AutoBlueOne;
@@ -215,6 +216,10 @@ public class RobotContainer {
 
   public Command getTurnTestCommand(){
     return new AutoTurnTest(m_robotDrive);
+  }
+
+  public Command getHighConePickupCommand(){
+    return new AutoBlueHighConePickup(m_robotDrive, m_armSubsystem, m_wristSubsystem);
   }
 
 }

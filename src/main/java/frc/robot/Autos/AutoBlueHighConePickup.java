@@ -23,9 +23,9 @@ import frc.robot.subsystems.WristSubsystem;
 // NOTE:  Consider using this command inline, rather than writing a subclass.  For more
 // information, see:
 // https://docs.wpilib.org/en/stable/docs/software/commandbased/convenience-features.html
-public class AutoBlueHighCone extends SequentialCommandGroup {
+public class AutoBlueHighConePickup extends SequentialCommandGroup {
   /** Creates a new AutoBlueHighCone. */
-  public AutoBlueHighCone(DriveSubsystem drive, ArmSubsystem arm, WristSubsystem wrist) {
+  public AutoBlueHighConePickup(DriveSubsystem drive, ArmSubsystem arm, WristSubsystem wrist) {
     // Add your commands in the addCommands() call, e.g.
     // addCommands(new FooCommand(), new BarCommand());
     addCommands(
@@ -41,8 +41,9 @@ public class AutoBlueHighCone extends SequentialCommandGroup {
       // Lower Arm and Back Up
       Commands.parallel(
         new ArmDownWristSetPositionCommand(arm, wrist, 1.5, 0),
-        new DriveTimeTestCommand(drive, -.25, 0, 0, 3.8))
-      
+        new DriveTimeTestCommand(drive, -.25, 0, 0, 3.5)),
+      new NavXTurnCommand(drive, .2, 180),
+      new DriveTimeTestCommand(drive, .1, 0, 0, .75)
     );
   }
 }
