@@ -24,6 +24,7 @@ import frc.robot.Autos.AutoBlueOne;
 import frc.robot.Autos.AutoBlueTwo;
 import frc.robot.Autos.AutoRampClimb;
 import frc.robot.Autos.DriveTimeTestCommand;
+import frc.robot.Autos.AutoTurnTest;
 import frc.robot.Autos.ExampleAuto;
 import frc.robot.Autos.ShootCubeHighSequence;
 import frc.robot.Autos.AutoRampClimbExit;
@@ -32,6 +33,7 @@ import frc.robot.Constants.DriveConstants;
 import frc.robot.Constants.OIConstants;
 import frc.robot.commands.ArmCommand;
 import frc.robot.commands.DriveCommand;
+import frc.robot.commands.NavXTurnCommand;
 import frc.robot.commands.WristRotatePIDTestCommand;
 import frc.robot.commands.WristRotateTestCommand;
 import frc.robot.commands.WristTeleopCommand;
@@ -209,6 +211,10 @@ public class RobotContainer {
   
   public Command getRampClimbExitCommand(){
     return new AutoRampClimbExit(m_robotDrive, m_armSubsystem, m_wristSubsystem);
+  }
+
+  public Command getTurnTestCommand(){
+    return new AutoTurnTest(m_robotDrive);
   }
 
 }

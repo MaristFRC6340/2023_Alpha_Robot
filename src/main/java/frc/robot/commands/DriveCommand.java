@@ -5,6 +5,7 @@
 package frc.robot.commands;
 
 import edu.wpi.first.math.MathUtil;
+import edu.wpi.first.math.filter.SlewRateLimiter;
 import edu.wpi.first.networktables.NetworkTable;
 import edu.wpi.first.networktables.NetworkTableEntry;
 import edu.wpi.first.networktables.NetworkTableInstance;
@@ -19,6 +20,10 @@ public class DriveCommand extends CommandBase {
   private final DriveSubsystem m_robotDrive;
 
   private double speedControl = 0.5;
+  private double rateLimit = 1.5;
+
+  private SlewRateLimiter filterX = new SlewRateLimiter(rateLimit);
+  private SlewRateLimiter filterY = new SlewRateLimiter(rateLimit);
 
   // Limelight Fields
   private NetworkTable limTable;
@@ -62,9 +67,9 @@ public class DriveCommand extends CommandBase {
   public void execute() {
     // Updated Drive Command
 
-    leftX = Robot.getDriveControlJoystick().getRawAxis(0) - turnPower;
-    leftY = Robot.getDriveControlJoystick().getRawAxis(1);
-    rightX = Robot.getDriveControlJoystick().getRawAxis(4); // Adjust for PID Limelight
+    leftX = filterX.calculate(Robot.getDriveControlJoystick().getRawAxis(0));
+    leftY = filterY.calculate(Robot.getDriveControlJoystick().getRawAxis(1));
+    rightX = Robot.getDriveControlJoystick().getRawAxis(4); 
 
 
     if (Robot.getDriveControlJoystick().getRawAxis(2) > 0.5) {
