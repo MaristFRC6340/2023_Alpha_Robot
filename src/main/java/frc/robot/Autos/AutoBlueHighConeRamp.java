@@ -30,7 +30,7 @@ public class AutoBlueHighConeRamp extends SequentialCommandGroup {
 
       // Up, out, and shoot
       new IntakeTimeCommand(arm, -.95, 0.25),
-      new ArmUpWristSetPositionCommand(arm, wrist, 3.5, 40),
+      new ArmUpWristSetPositionCommand(arm, wrist, 3.5, 43),
       new ArmLengthCommand(arm, -.95, 2),
       new IntakeTimeCommand(arm, 0.8,.5),
 

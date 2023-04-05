@@ -31,7 +31,7 @@ public class AutoBlueHighConePickup extends SequentialCommandGroup {
     addCommands(
 
       // Up, out, and shoot
-      new ArmUpWristSetPositionCommand(arm, wrist, 3.25, 40),
+      new ArmUpWristSetPositionCommand(arm, wrist, 3.25, 43),
       new ArmLengthCommand(arm, -.95, 1.9),
       new IntakeTimeCommand(arm, 0.8,.5),
 
@@ -42,8 +42,8 @@ public class AutoBlueHighConePickup extends SequentialCommandGroup {
       Commands.parallel(
         new ArmDownWristSetPositionCommand(arm, wrist, 1.5, 0),
         new DriveTimeTestCommand(drive, -.25, 0, 0, 3.5)),
-      new NavXTurnCommand(drive, .2, 180),
-      new DriveTimeTestCommand(drive, .1, 0, 0, .75)
+      new NavXTurnCommand(drive, .2, -160),
+      new DriveTimeTestCommand(drive, .15, 0, 0, .75)
     );
   }
 }

@@ -69,6 +69,9 @@ public class DriveCommand extends CommandBase {
 
     leftX = filterX.calculate(Robot.getDriveControlJoystick().getRawAxis(0));
     leftY = filterY.calculate(Robot.getDriveControlJoystick().getRawAxis(1));
+
+    // leftX = Robot.getDriveControlJoystick().getRawAxis(0);
+    // leftY = Robot.getDriveControlJoystick().getRawAxis(1);
     rightX = Robot.getDriveControlJoystick().getRawAxis(4); 
 
 
@@ -101,10 +104,12 @@ public class DriveCommand extends CommandBase {
     // Left Bumper Full Speed
     if (Robot.getDriveControlJoystick().getRawButton(5)) {
       speedControl = 1.0;
+      rateLimit = 10;
     }
     // Right Bumper Half Speed
     if (Robot.getDriveControlJoystick().getRawButton(6)) {
       speedControl = 0.5;
+      rateLimit = 1.5;
     }
 
   }

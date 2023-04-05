@@ -41,7 +41,7 @@ public class NavXTurnCommand extends CommandBase {
         if(turnAdjust<-power){
             turnAdjust = -power;
         }
-        System.out.println("error: " + error + "   turnAdjust: " + turnAdjust);
+        //System.out.println("error: " + error + "   turnAdjust: " + turnAdjust);
         m_robotDrive.drive(0, 0, -turnAdjust, false);
 
     }
