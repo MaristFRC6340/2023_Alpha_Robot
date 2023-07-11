@@ -31,10 +31,12 @@ public class ArmCommand extends CommandBase {
 
     // Arm Control
     if(Robot.getArmControlJoystick().getRawButton(6)){ // rb
-      arm.armUp();
+      //arm.armUp();
+      arm.setIntakeLeftMotorPower(1);
     }
     if(Robot.getArmControlJoystick().getRawButton(5)){ // lb
-      arm.armDown();
+      //arm.armDown();
+       arm.setIntakeLeftMotorPower(-1);
     }
 
     // Compressor Control - POV Button
@@ -51,10 +53,14 @@ public class ArmCommand extends CommandBase {
     // }
 
     // Intake Control
-    double intakePower = Robot.getArmControlJoystick().getRawAxis(2) - Robot.getArmControlJoystick().getRawAxis(3);
+    //OLD CONTROLS
+    //double intakePower = Robot.getArmControlJoystick().getRawAxis(2) - Robot.getArmControlJoystick().getRawAxis(3);
     //System.out.println(intakePower);
-    arm.setIntakeLeftMotorPower(intakePower);
-
+    //arm.setIntakeLeftMotorPower(intakePower);
+    
+    if(MathUtil.applyDeadband(Robot.getArmControlJoystick().getRawAxis(2), .06) > 0)arm.armUp();
+    if(MathUtil.applyDeadband(Robot.getArmControlJoystick().getRawAxis(3), .06)>0) arm.armDown();
+     
     // Arm Length
     leftY = Robot.getArmControlJoystick().getRawAxis(1); //arm motor
     arm.setArmLengthMotorPower(MathUtil.applyDeadband(leftY, 0.06));
